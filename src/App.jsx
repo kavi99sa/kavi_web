@@ -29,6 +29,7 @@ import {
   Database,
   MapPin,
   Linkedin,
+  CheckCheck,
 } from 'lucide-react';
 
 // =====================================================
@@ -132,6 +133,22 @@ const FontLoader = () => (
     }
     .blink { animation: blink 1.2s steps(1) infinite; }
 
+    /* WhatsApp mockup animations */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up {
+      animation: fade-up 0.5s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes typing-dot {
+      0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+      30% { opacity: 1; transform: translateY(-3px); }
+    }
+    .typing-dot { animation: typing-dot 1.4s ease-in-out infinite; }
+
     /* Underline draw effect */
     .draw-underline {
       background-image: linear-gradient(currentColor, currentColor);
@@ -209,16 +226,16 @@ const Nav = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-5 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2.5 group">
-          <div className="relative w-9 h-9">
+        <a href="#" className="flex items-center gap-3 group">
+          <div className="relative w-11 h-11">
             <div className="absolute inset-0 rounded-full bg-emerald-400 group-hover:bg-emerald-300 transition-colors" />
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-black font-bold font-display text-base">K</span>
+              <span className="text-black font-bold font-display text-lg">K</span>
             </div>
           </div>
           <div className="leading-tight">
-            <div className="font-display text-[17px] font-medium tracking-tight">Kavi Automation</div>
-            <div className="text-[10px] uppercase tracking-[0.2em] text-white/40">AI Systems Studio</div>
+            <div className="font-display text-xl md:text-[22px] font-medium tracking-tight">Kavi Automation</div>
+            <div className="text-[10px] uppercase tracking-[0.2em] text-white/40 mt-0.5">AI Systems Studio</div>
           </div>
         </a>
 
@@ -243,83 +260,201 @@ const Nav = () => {
 // =====================================================
 // WORKFLOW VISUALIZATION (Hero)
 // =====================================================
-const WorkflowViz = () => (
-  <div className="relative w-full h-full min-h-[400px] hidden lg:block">
-    <svg viewBox="0 0 400 500" className="w-full h-full">
-      <defs>
-        <linearGradient id="line-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#34d399" stopOpacity="0" />
-          <stop offset="50%" stopColor="#34d399" stopOpacity="0.6" />
-          <stop offset="100%" stopColor="#34d399" stopOpacity="0" />
-        </linearGradient>
-        <radialGradient id="node-glow">
-          <stop offset="0%" stopColor="#34d399" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#34d399" stopOpacity="0" />
-        </radialGradient>
-      </defs>
+const conversations = [
+  {
+    industry: 'E-commerce',
+    industryEmoji: '🛍️',
+    industryColor: 'emerald',
+    messages: [
+      { role: 'customer', text: 'Hi! Do you have black t-shirts in size M? 👕', time: '11:43 PM', delay: 0.3 },
+      { role: 'ai', text: 'Yes! We have 3 styles available 🎽', time: '11:43 PM', delay: 1.1 },
+      { role: 'ai', text: 'Want to see photos and prices?', time: '11:43 PM', delay: 1.9 },
+      { role: 'customer', text: 'Yes please!', time: '11:44 PM', delay: 2.7 },
+    ],
+  },
+  {
+    industry: 'Salon Booking',
+    industryEmoji: '✂️',
+    industryColor: 'amber',
+    messages: [
+      { role: 'customer', text: 'Can I book a haircut tomorrow? 💇‍♀️', time: '2:15 PM', delay: 0.3 },
+      { role: 'ai', text: 'Of course! Available: 11 AM, 2:30 PM, 5 PM 🗓️', time: '2:15 PM', delay: 1.1 },
+      { role: 'customer', text: '2:30 works perfectly', time: '2:16 PM', delay: 2.0 },
+      { role: 'ai', text: 'Booked! Confirmation sent ✓', time: '2:16 PM', delay: 2.8 },
+    ],
+  },
+  {
+    industry: 'Real Estate',
+    industryEmoji: '🏠',
+    industryColor: 'emerald',
+    messages: [
+      { role: 'customer', text: 'Is the 2BR apartment still available? 🏡', time: '9:02 AM', delay: 0.3 },
+      { role: 'ai', text: 'Yes! €650/month, free from May 15 💶', time: '9:02 AM', delay: 1.1 },
+      { role: 'ai', text: 'Want to schedule a viewing this week?', time: '9:02 AM', delay: 1.9 },
+      { role: 'customer', text: 'Friday afternoon works 👍', time: '9:03 AM', delay: 2.7 },
+    ],
+  },
+  {
+    industry: 'B2B Inquiry',
+    industryEmoji: '🤝',
+    industryColor: 'amber',
+    messages: [
+      { role: 'customer', text: 'Interested in automation services 🤝', time: '4:30 PM', delay: 0.3 },
+      { role: 'ai', text: 'Great! What\'s your main workflow challenge?', time: '4:30 PM', delay: 1.1 },
+      { role: 'customer', text: 'Lead outreach eats 10+ hrs/day', time: '4:31 PM', delay: 2.0 },
+      { role: 'ai', text: 'Perfect fit. Routing to founder 📞', time: '4:31 PM', delay: 2.8 },
+    ],
+  },
+];
 
-      {/* Connection lines with flow animation */}
-      <g stroke="url(#line-grad)" strokeWidth="1.5" fill="none" strokeDasharray="4 4">
-        <path d="M 80 80 Q 200 80 200 200" className="data-flow" />
-        <path d="M 320 80 Q 200 80 200 200" className="data-flow" />
-        <path d="M 200 240 L 200 320" className="data-flow" />
-        <path d="M 200 360 Q 80 400 80 440" className="data-flow" />
-        <path d="M 200 360 Q 320 400 320 440" className="data-flow" />
-      </g>
+const WhatsAppMockup = () => {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
-      {/* WhatsApp node */}
-      <g className="float-1">
-        <circle cx="80" cy="80" r="40" fill="url(#node-glow)" />
-        <circle cx="80" cy="80" r="26" fill="#1c1c1a" stroke="#34d399" strokeOpacity="0.4" />
-        <text x="80" y="85" textAnchor="middle" fill="#fafaf9" fontSize="11" fontFamily="Manrope" fontWeight="600">WhatsApp</text>
-      </g>
+  useEffect(() => {
+    if (isHovered) return;
+    const timer = setInterval(() => {
+      setActiveIdx((idx) => (idx + 1) % conversations.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [isHovered]);
 
-      {/* Phone node */}
-      <g className="float-2">
-        <circle cx="320" cy="80" r="40" fill="url(#node-glow)" />
-        <circle cx="320" cy="80" r="26" fill="#1c1c1a" stroke="#34d399" strokeOpacity="0.4" />
-        <text x="320" y="85" textAnchor="middle" fill="#fafaf9" fontSize="11" fontFamily="Manrope" fontWeight="600">Voice</text>
-      </g>
+  const current = conversations[activeIdx];
+  const badgeStyles = current.industryColor === 'amber'
+    ? 'bg-amber-300 text-black shadow-amber-300/30'
+    : 'bg-emerald-400 text-black shadow-emerald-400/30';
 
-      {/* AI Brain node (center) */}
-      <g className="float-3">
-        <circle cx="200" cy="220" r="55" fill="url(#node-glow)" />
-        <circle cx="200" cy="220" r="38" fill="#34d399" />
-        <text x="200" y="218" textAnchor="middle" fill="#0a0a09" fontSize="11" fontFamily="Manrope" fontWeight="700">AI AGENT</text>
-        <text x="200" y="232" textAnchor="middle" fill="#0a0a09" fontSize="9" fontFamily="Manrope" fontWeight="500" opacity="0.7">Human-Approved</text>
-      </g>
+  return (
+    <div
+      className="relative w-full max-w-[340px] mx-auto hidden lg:block"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Ambient glow */}
+      <div className="absolute -inset-12 bg-emerald-400/10 blur-3xl rounded-full -z-10" />
 
-      {/* Decision diamond */}
-      <g className="float-4">
-        <polygon points="200,320 220,340 200,360 180,340" fill="#1c1c1a" stroke="#fcd34d" strokeOpacity="0.5" strokeWidth="1.5" />
-      </g>
+      {/* Floating industry badge — top right */}
+      <div
+        className={`absolute -top-3 -right-3 z-30 px-3.5 py-2 rounded-2xl shadow-xl text-xs font-medium flex items-center gap-1.5 transform rotate-6 transition-all duration-500 ${badgeStyles}`}
+        key={`badge-${activeIdx}`}
+      >
+        <span>{current.industryEmoji}</span>
+        {current.industry}
+      </div>
 
-      {/* CRM node */}
-      <g className="float-1">
-        <circle cx="80" cy="440" r="40" fill="url(#node-glow)" />
-        <circle cx="80" cy="440" r="26" fill="#1c1c1a" stroke="#34d399" strokeOpacity="0.4" />
-        <text x="80" y="445" textAnchor="middle" fill="#fafaf9" fontSize="11" fontFamily="Manrope" fontWeight="600">CRM</text>
-      </g>
+      {/* Phone frame */}
+      <div className="relative bg-zinc-900 rounded-[2.5rem] p-2.5 shadow-2xl shadow-black/50 border border-zinc-800 transform rotate-3 hover:rotate-0 transition-transform duration-700">
+        {/* Notch */}
+        <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-b-2xl z-10" />
 
-      {/* Calendar node */}
-      <g className="float-2">
-        <circle cx="320" cy="440" r="40" fill="url(#node-glow)" />
-        <circle cx="320" cy="440" r="26" fill="#1c1c1a" stroke="#34d399" strokeOpacity="0.4" />
-        <text x="320" y="445" textAnchor="middle" fill="#fafaf9" fontSize="11" fontFamily="Manrope" fontWeight="600">Calendar</text>
-      </g>
+        {/* Screen */}
+        <div className="relative bg-gradient-to-b from-zinc-950 to-zinc-900 rounded-[2rem] overflow-hidden">
+          {/* WhatsApp header */}
+          <div className="bg-[#075E54] px-3.5 pt-8 pb-3 flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-full bg-emerald-400 flex items-center justify-center font-display font-bold text-black text-sm flex-shrink-0">
+              K
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-white text-sm font-semibold truncate">Kavi AI Assistant</div>
+              <div className="flex items-center gap-1.5 text-emerald-200/80 text-[11px]">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse" />
+                online · typing...
+              </div>
+            </div>
+            <Phone className="w-4 h-4 text-white/80 flex-shrink-0" />
+          </div>
 
-      {/* Status indicators */}
-      <circle cx="100" cy="60" r="3" fill="#34d399" className="blink" />
-      <circle cx="340" cy="60" r="3" fill="#34d399" className="blink" />
-    </svg>
-  </div>
-);
+          {/* Chat area — key forces full re-render on slide change */}
+          <div
+            key={activeIdx}
+            className="bg-[#0b141a] px-3 py-3.5 space-y-2 h-[380px] overflow-hidden"
+          >
+            {/* Date stamp */}
+            <div className="flex justify-center">
+              <div className="bg-[#1f2c33] rounded-md px-3 py-1 text-[10px] text-white/60">Today</div>
+            </div>
+
+            {/* Messages */}
+            {current.messages.map((msg, i) => (
+              <div
+                key={i}
+                className={`flex animate-fade-up ${
+                  msg.role === 'customer' ? 'justify-end' : 'justify-start'
+                }`}
+                style={{ animationDelay: `${msg.delay}s` }}
+              >
+                <div
+                  className={`rounded-lg px-3 py-2 max-w-[82%] ${
+                    msg.role === 'customer'
+                      ? 'bg-[#005c4b] rounded-tr-none'
+                      : 'bg-[#202c33] rounded-tl-none'
+                  }`}
+                >
+                  <p className="text-white text-[12.5px] leading-snug">{msg.text}</p>
+                  <div
+                    className={`text-[9px] mt-1 flex items-center gap-1 ${
+                      msg.role === 'customer'
+                        ? 'justify-end text-emerald-200/60'
+                        : 'text-white/40'
+                    }`}
+                  >
+                    {msg.time}
+                    {msg.role === 'customer' && <CheckCheck className="w-2.5 h-2.5 text-blue-400" />}
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {/* Typing indicator */}
+            <div className="flex justify-start animate-fade-up" style={{ animationDelay: '3.4s' }}>
+              <div className="bg-[#202c33] rounded-lg rounded-tl-none px-3 py-2.5">
+                <div className="flex gap-1 items-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-white/60 typing-dot" />
+                  <div
+                    className="w-1.5 h-1.5 rounded-full bg-white/60 typing-dot"
+                    style={{ animationDelay: '0.2s' }}
+                  />
+                  <div
+                    className="w-1.5 h-1.5 rounded-full bg-white/60 typing-dot"
+                    style={{ animationDelay: '0.4s' }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Floating response time badge — bottom left */}
+      <div className="absolute -bottom-4 -left-4 z-20 px-4 py-2.5 bg-zinc-900 border border-emerald-400/30 rounded-2xl shadow-xl shadow-black/50 transform -rotate-3">
+        <div className="font-display text-2xl text-emerald-400 font-medium leading-none">3s</div>
+        <div className="text-white/60 text-[9px] uppercase tracking-wider mt-1">Avg response</div>
+      </div>
+
+      {/* Slide indicators */}
+      <div className="mt-10 flex justify-center gap-2">
+        {conversations.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setActiveIdx(i)}
+            className={`h-1.5 rounded-full transition-all ${
+              i === activeIdx
+                ? 'w-8 bg-emerald-400'
+                : 'w-1.5 bg-white/20 hover:bg-white/40'
+            }`}
+            aria-label={`Show conversation ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 // =====================================================
 // HERO
 // =====================================================
 const Hero = () => (
-  <section className="relative min-h-screen flex items-center pt-28 pb-12 overflow-hidden grain">
+  <section className="relative min-h-screen flex items-center pt-28 pb-4 overflow-hidden grain">
     <div className="absolute inset-0 -z-10">
       <div className="absolute top-1/4 -left-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl glow" />
       <div className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-emerald-400/5 rounded-full blur-3xl glow" style={{ animationDelay: '2s' }} />
@@ -347,18 +482,18 @@ const Hero = () => (
           <h1 className="reveal reveal-d1 font-display text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-tight">
             Every conversation
             <br />
-            is <em className="italic text-emerald-400 font-light">revenue.</em>
+            can become <em className="italic text-emerald-400 font-light">revenue.</em>
             <br />
             Every missed
             <br />
-            message is a
+            message can mean
             <br />
-            <span className="text-white/40">customer lost.</span>
+            <span className="text-white/40">a lost customer.</span>
           </h1>
 
           <p className="reveal reveal-d2 mt-8 text-lg md:text-xl text-white/70 max-w-xl leading-relaxed">
-            We build AI agents that handle your WhatsApp, your phone calls, and the entire business
-            workflow behind them — so no lead, no booking, no opportunity ever slips through again.
+            We build AI automation systems for WhatsApp, voice, CRM, and customer workflows — so
+            your business responds faster without losing the human touch.
           </p>
 
           <div className="reveal reveal-d3 mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -366,7 +501,7 @@ const Hero = () => (
               onClick={openBookingModal}
               className="group inline-flex items-center gap-3 px-7 py-4 bg-emerald-400 hover:bg-emerald-300 text-black font-medium rounded-full transition-all hover:scale-105"
             >
-              Book Your Free Audit
+              Book Your Free Automation Audit
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
             <a
@@ -382,7 +517,11 @@ const Hero = () => (
             <div className="text-xs uppercase tracking-[0.3em] text-white/30 mb-4">
               Built with the tools your business already trusts
             </div>
-            <div className="flex flex-wrap items-center gap-x-8 gap-y-4 font-display italic text-white/60 text-sm md:text-base">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3 font-display italic text-white/60 text-sm md:text-base">
+              <span>Google Workspace</span>
+              <span className="text-white/20">·</span>
+              <span>Airtable</span>
+              <span className="text-white/20">·</span>
               <span>n8n</span>
               <span className="text-white/20">·</span>
               <span>OpenAI</span>
@@ -392,16 +531,12 @@ const Hero = () => (
               <span>WhatsApp API</span>
               <span className="text-white/20">·</span>
               <span>Telegram</span>
-              <span className="text-white/20">·</span>
-              <span>Airtable</span>
-              <span className="text-white/20">·</span>
-              <span>Google Workspace</span>
             </div>
           </div>
         </div>
 
-        <div className="lg:col-span-5 reveal reveal-d3">
-          <WorkflowViz />
+        <div className="lg:col-span-5 reveal reveal-d3 flex items-center justify-center">
+          <WhatsAppMockup />
         </div>
       </div>
     </div>
@@ -434,7 +569,7 @@ const PainScenario = ({ time, mood, title, body, delay }) => {
 };
 
 const PainSection = () => (
-  <section className="relative pt-12 pb-20 md:pt-16 md:pb-28 bg-gradient-to-b from-black via-zinc-950 to-black">
+  <section className="relative pt-4 pb-20 md:pt-6 md:pb-28 bg-gradient-to-b from-black via-zinc-950 to-black">
     <div className="max-w-7xl mx-auto px-6 lg:px-12">
       <div className="max-w-3xl mb-14">
         <ChapterMark part="Pt. 01" title="The Problem" color="amber" />
@@ -621,11 +756,11 @@ const ServicesSection = () => (
           icon={MessageCircle}
           label="01 — Conversational AI"
           title="WhatsApp, Voice & Chat Agents"
-          body="Wherever your customers talk — WhatsApp, phone, Telegram, web chat — your AI answers. Smart, on-brand, always available. Voice agents handle calls in natural conversation. Multi-channel coverage, zero missed messages."
+          body="Wherever your customers talk — WhatsApp, phone, Telegram, web chat — your AI answers. Smart, on-brand, always available. Voice agents handle calls in natural conversation. Multilingual support so every customer feels heard."
           features={[
             'WhatsApp Business API + Voice AI agents',
             'Natural multi-turn conversations with memory',
-            'Lead qualification & smart routing',
+            'Multilingual support across channels',
             '24/7 availability with human escalation',
           ]}
           featured
@@ -635,7 +770,7 @@ const ServicesSection = () => (
           icon={Target}
           label="02 — Sales Pipelines"
           title="B2B Outreach & Lead Automation"
-          body="From discovery to first reply — the entire sales pipeline, automated. Lead enrichment, email verification, AI-personalized outreach, smart follow-ups. Built for B2B agencies, sales teams, and service businesses with active outreach."
+          body="From discovery to qualified prospects — the entire sales pipeline, automated. Lead enrichment, email verification, AI-personalized outreach, smart follow-ups. Built to make your team faster, not busier."
           features={[
             'Lead discovery, enrichment & email verification',
             'AI-drafted outreach with human approval',
@@ -662,7 +797,7 @@ const ServicesSection = () => (
           icon={Brain}
           label="04 — AI Agents"
           title="Custom AI Agents & Integrations"
-          body="Bespoke AI agents with tools, memory, and decision logic. Smart automation with the Human Approval System. AI drafts replies, scores leads, generates reports — you approve. Zero hallucinations, full control."
+          body="Bespoke AI agents with tools, memory, and decision logic. Smart automation with the Human Approval System. AI drafts replies, scores leads, generates reports — you approve. Guardrails to reduce hallucinations and keep humans in control."
           features={[
             'Multi-tool AI agents (Sheets, Gmail, Calendar)',
             'Human-in-the-loop approval flows',
@@ -728,6 +863,9 @@ const MethodSection = () => {
           <p className="text-emerald-400 font-display text-xl md:text-2xl pt-4">
             That's not a bot. That's automation.
           </p>
+          <p className="text-white/80 font-display text-lg md:text-xl pt-2 italic">
+            Your workflows run smoother — with less manual work.
+          </p>
         </div>
       </div>
     </section>
@@ -739,11 +877,11 @@ const MethodSection = () => {
 // =====================================================
 const caseStudies = [
   {
-    badge: 'Featured',
+    badge: 'Example Workflow',
     industry: 'B2B Sales Agency',
     title: 'Government Contract Discovery & Outreach Engine',
     challenge: 'Manual sales research consumed 10+ hours daily. Tender opportunities were missed. Outreach was inconsistent and slow.',
-    solution: 'A four-workflow automation system that runs the entire B2B sales pipeline — from opportunity discovery to qualified replies.',
+    solution: 'A four-workflow automation system that runs the entire B2B sales pipeline — from opportunity discovery to qualified prospects.',
     pipeline: [
       'Daily SAM.gov tender ingestion → AI fit scoring',
       'Company matching via Apollo + email verification',
@@ -751,11 +889,11 @@ const caseStudies = [
       'Multi-step follow-ups with reply detection & suppression',
     ],
     stack: ['n8n', 'OpenAI', 'Apollo', 'Airtable', 'Telegram', 'Gmail API'],
-    impact: '10+ hours/day reclaimed. Zero off-brand outreach. Compliance-friendly architecture.',
+    impact: 'Designed to reduce repetitive manual work while keeping humans in control of every outreach.',
     accent: 'amber',
   },
   {
-    badge: 'Live',
+    badge: 'Demo System',
     industry: 'E-commerce / Service Business',
     title: 'WhatsApp Customer Service AI Agent',
     challenge: 'After-hours inquiries lost as missed messages. Customer service team overwhelmed by repetitive questions.',
@@ -764,14 +902,14 @@ const caseStudies = [
       'WhatsApp message → AI agent with conversational memory',
       'Auto-logs customer data to Google Sheets database',
       'Smart escalation to human via Telegram on edge cases',
-      'Multi-language support with brand voice consistency',
+      'Multilingual support with brand voice consistency',
     ],
     stack: ['WhatsApp API', 'OpenAI', 'Google Sheets', 'Telegram'],
-    impact: 'Zero missed inquiries. 80% auto-resolved. Customer satisfaction up.',
+    impact: 'Designed to capture every inquiry 24/7 with multilingual support and human escalation when needed.',
     accent: 'emerald',
   },
   {
-    badge: 'Internal Ops',
+    badge: 'Sample Automation',
     industry: 'Professional Services',
     title: 'Email-to-Document Automation Pipeline',
     challenge: 'Manual document creation from email requests. Calendar coordination chaos. Hours lost to admin work.',
@@ -783,7 +921,7 @@ const caseStudies = [
       'Generates Google Docs deliverables automatically',
     ],
     stack: ['Gmail', 'Google Drive', 'Sheets', 'Calendar', 'Docs', 'Notion'],
-    impact: 'Document turnaround: 2 hours → 2 minutes.',
+    impact: 'Designed to eliminate manual document creation while keeping humans in control of the final output.',
     accent: 'emerald',
   },
 ];
@@ -870,14 +1008,14 @@ const CaseStudiesSection = () => (
   <section id="work" className="relative py-20 md:py-28 bg-gradient-to-b from-zinc-950 via-black to-zinc-950">
     <div className="max-w-7xl mx-auto px-6 lg:px-12">
       <div className="max-w-3xl mb-16">
-        <ChapterMark part="Pt. 05" title="Featured Work" color="amber" />
+        <ChapterMark part="Pt. 05" title="Example Work" color="amber" />
         <h2 className="font-display text-4xl md:text-6xl leading-[1.05] text-white">
-          Real systems.{' '}
-          <em className="italic text-amber-300">Real impact.</em>
+          Real workflows.{' '}
+          <em className="italic text-amber-300">Honest design.</em>
         </h2>
         <p className="mt-6 text-lg text-white/60 max-w-2xl leading-relaxed">
-          Every project anonymized to protect client confidentiality. The architectures are real.
-          The results are measured. The methodologies are repeatable.
+          These are example automation systems showing what we build. Each is designed
+          to reduce repetitive manual work while keeping humans in control of every decision.
         </p>
       </div>
 
@@ -1103,21 +1241,20 @@ const FounderSection = () => {
               Built by an{' '}
               <em className="italic text-amber-300">automation</em>
               <br />
-              obsessive.
+              specialist.
             </h2>
 
             <div className="space-y-5 text-lg text-white/70 leading-relaxed mb-10 pb-10 border-b border-white/10">
               <p>
-                Hi, I'm <span className="text-white font-medium">Hansani Kavindi</span> — founder of Kavi Automation.
+                Built by <span className="text-white font-medium">Hansani Kavindi</span> — founder of Kavi Automation.
               </p>
               <p>
-                I started building automation workflows because I watched too many small business owners drowning
-                in repetitive work that machines should handle. Today, I build complete AI systems for businesses
-                across e-commerce, real estate, hospitality, and B2B sales.
+                I build AI automation systems for small businesses that want{' '}
+                <em className="italic text-emerald-400">faster replies, cleaner workflows, and less manual work.</em>
               </p>
               <p className="text-white/90">
-                My signature approach: <em className="italic text-emerald-400">AI does the work, humans stay in control.</em>{' '}
-                No hallucinations. No off-brand chaos. Just intelligent systems that make you faster, not foolish.
+                My approach is simple: AI handles repetitive tasks, humans stay in control,
+                and every workflow is designed with approval, safety, and brand consistency in mind.
               </p>
             </div>
 
@@ -1145,7 +1282,7 @@ const whyUs = [
   {
     icon: Shield,
     title: 'You stay in control.',
-    body: 'Our Human Approval System means AI suggests, you decide. Always. No hallucinations. No off-brand replies. No chaos.',
+    body: 'Guardrails to reduce hallucinations and keep humans in control. Our Human Approval System means AI suggests, you decide. Always. No off-brand replies.',
   },
   {
     icon: Wrench,
@@ -1434,7 +1571,7 @@ const FinalCTA = () => (
         onClick={openBookingModal}
         className="group inline-flex items-center gap-3 px-8 py-5 bg-emerald-400 hover:bg-emerald-300 text-black font-medium rounded-full transition-all hover:scale-105 text-lg"
       >
-        Book Your Free Audit
+        Book Your Free Automation Audit
         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
       </button>
 
