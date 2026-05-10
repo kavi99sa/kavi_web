@@ -70,6 +70,7 @@ const FontLoader = () => (
     .font-display { font-family: var(--font-display); font-feature-settings: "ss01", "ss02"; }
     .font-body { font-family: var(--font-body); }
 
+    /* Subtle film grain */
     .grain::before {
       content: '';
       position: absolute;
@@ -80,6 +81,7 @@ const FontLoader = () => (
       mix-blend-mode: overlay;
     }
 
+    /* Animations */
     @keyframes glow-pulse {
       0%, 100% { opacity: 0.3; transform: scale(1); }
       50% { opacity: 0.5; transform: scale(1.05); }
@@ -130,6 +132,7 @@ const FontLoader = () => (
     }
     .blink { animation: blink 1.2s steps(1) infinite; }
 
+    /* Underline draw effect */
     .draw-underline {
       background-image: linear-gradient(currentColor, currentColor);
       background-size: 0% 1px;
@@ -139,15 +142,20 @@ const FontLoader = () => (
     }
     .draw-underline:hover { background-size: 100% 1px; }
 
+    /* Custom scrollbar */
     ::-webkit-scrollbar { width: 10px; }
     ::-webkit-scrollbar-track { background: var(--bg-deep); }
     ::-webkit-scrollbar-thumb { background: #262624; border-radius: 10px; }
     ::-webkit-scrollbar-thumb:hover { background: #3f3f3a; }
 
+    /* Selection */
     ::selection { background: var(--emerald); color: black; }
   `}</style>
 );
 
+// =====================================================
+// SCROLL REVEAL HOOK
+// =====================================================
 const useReveal = () => {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -169,6 +177,9 @@ const useReveal = () => {
   return [ref, visible];
 };
 
+// =====================================================
+// REUSABLE ATOMS
+// =====================================================
 const ChapterMark = ({ part, title, color = 'emerald' }) => (
   <div className="flex items-center gap-3 mb-6">
     <div className={`h-px w-8 ${color === 'amber' ? 'bg-amber-300' : 'bg-emerald-400'}`} />
@@ -179,6 +190,9 @@ const ChapterMark = ({ part, title, color = 'emerald' }) => (
   </div>
 );
 
+// =====================================================
+// NAVIGATION
+// =====================================================
 const Nav = () => {
   const [scrolled, setScrolled] = useState(false);
 
@@ -226,6 +240,9 @@ const Nav = () => {
   );
 };
 
+// =====================================================
+// WORKFLOW VISUALIZATION (Hero)
+// =====================================================
 const WorkflowViz = () => (
   <div className="relative w-full h-full min-h-[400px] hidden lg:block">
     <svg viewBox="0 0 400 500" className="w-full h-full">
@@ -241,6 +258,7 @@ const WorkflowViz = () => (
         </radialGradient>
       </defs>
 
+      {/* Connection lines with flow animation */}
       <g stroke="url(#line-grad)" strokeWidth="1.5" fill="none" strokeDasharray="4 4">
         <path d="M 80 80 Q 200 80 200 200" className="data-flow" />
         <path d="M 320 80 Q 200 80 200 200" className="data-flow" />
@@ -249,18 +267,21 @@ const WorkflowViz = () => (
         <path d="M 200 360 Q 320 400 320 440" className="data-flow" />
       </g>
 
+      {/* WhatsApp node */}
       <g className="float-1">
         <circle cx="80" cy="80" r="40" fill="url(#node-glow)" />
         <circle cx="80" cy="80" r="26" fill="#1c1c1a" stroke="#34d399" strokeOpacity="0.4" />
         <text x="80" y="85" textAnchor="middle" fill="#fafaf9" fontSize="11" fontFamily="Manrope" fontWeight="600">WhatsApp</text>
       </g>
 
+      {/* Phone node */}
       <g className="float-2">
         <circle cx="320" cy="80" r="40" fill="url(#node-glow)" />
         <circle cx="320" cy="80" r="26" fill="#1c1c1a" stroke="#34d399" strokeOpacity="0.4" />
         <text x="320" y="85" textAnchor="middle" fill="#fafaf9" fontSize="11" fontFamily="Manrope" fontWeight="600">Voice</text>
       </g>
 
+      {/* AI Brain node (center) */}
       <g className="float-3">
         <circle cx="200" cy="220" r="55" fill="url(#node-glow)" />
         <circle cx="200" cy="220" r="38" fill="#34d399" />
@@ -268,28 +289,35 @@ const WorkflowViz = () => (
         <text x="200" y="232" textAnchor="middle" fill="#0a0a09" fontSize="9" fontFamily="Manrope" fontWeight="500" opacity="0.7">Human-Approved</text>
       </g>
 
+      {/* Decision diamond */}
       <g className="float-4">
         <polygon points="200,320 220,340 200,360 180,340" fill="#1c1c1a" stroke="#fcd34d" strokeOpacity="0.5" strokeWidth="1.5" />
       </g>
 
+      {/* CRM node */}
       <g className="float-1">
         <circle cx="80" cy="440" r="40" fill="url(#node-glow)" />
         <circle cx="80" cy="440" r="26" fill="#1c1c1a" stroke="#34d399" strokeOpacity="0.4" />
         <text x="80" y="445" textAnchor="middle" fill="#fafaf9" fontSize="11" fontFamily="Manrope" fontWeight="600">CRM</text>
       </g>
 
+      {/* Calendar node */}
       <g className="float-2">
         <circle cx="320" cy="440" r="40" fill="url(#node-glow)" />
         <circle cx="320" cy="440" r="26" fill="#1c1c1a" stroke="#34d399" strokeOpacity="0.4" />
         <text x="320" y="445" textAnchor="middle" fill="#fafaf9" fontSize="11" fontFamily="Manrope" fontWeight="600">Calendar</text>
       </g>
 
+      {/* Status indicators */}
       <circle cx="100" cy="60" r="3" fill="#34d399" className="blink" />
       <circle cx="340" cy="60" r="3" fill="#34d399" className="blink" />
     </svg>
   </div>
 );
 
+// =====================================================
+// HERO
+// =====================================================
 const Hero = () => (
   <section className="relative min-h-screen flex items-center pt-28 pb-12 overflow-hidden grain">
     <div className="absolute inset-0 -z-10">
@@ -319,17 +347,18 @@ const Hero = () => (
           <h1 className="reveal reveal-d1 font-display text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-tight">
             Every conversation
             <br />
-            can become <em className="italic text-emerald-400 font-light">revenue.</em>
+            is <em className="italic text-emerald-400 font-light">revenue.</em>
             <br />
             Every missed
             <br />
-            message can mean a
+            message is a
             <br />
             <span className="text-white/40">customer lost.</span>
           </h1>
 
           <p className="reveal reveal-d2 mt-8 text-lg md:text-xl text-white/70 max-w-xl leading-relaxed">
-            We build AI automation systems for WhatsApp, voice, CRM, and customer workflows — so your business responds faster without losing the human touch.
+            We build AI agents that handle your WhatsApp, your phone calls, and the entire business
+            workflow behind them — so no lead, no booking, no opportunity ever slips through again.
           </p>
 
           <div className="reveal reveal-d3 mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -379,6 +408,9 @@ const Hero = () => (
   </section>
 );
 
+// =====================================================
+// PAIN SECTION (Act 1: The Problem)
+// =====================================================
 const PainScenario = ({ time, mood, title, body, delay }) => {
   const [ref, visible] = useReveal();
   return (
@@ -451,6 +483,9 @@ const PainSection = () => (
   </section>
 );
 
+// =====================================================
+// TRANSFORMATION SECTION (Act 2: The Promise)
+// =====================================================
 const TransformScenario = ({ time, mood, title, body, delay }) => {
   const [ref, visible] = useReveal();
   return (
@@ -526,6 +561,9 @@ const TransformSection = () => (
   </section>
 );
 
+// =====================================================
+// SERVICES SECTION (4 NEW PILLARS)
+// =====================================================
 const ServiceCard = ({ icon: Icon, label, title, body, features, featured, delay }) => {
   const [ref, visible] = useReveal();
   return (
@@ -583,10 +621,10 @@ const ServicesSection = () => (
           icon={MessageCircle}
           label="01 — Conversational AI"
           title="WhatsApp, Voice & Chat Agents"
-          body="Wherever your customers talk — WhatsApp, phone, Telegram, web chat — your AI answers. Smart, on-brand, and supports multiple languages. Multilingual support ensures global reach."
+          body="Wherever your customers talk — WhatsApp, phone, Telegram, web chat — your AI answers. Smart, on-brand, always available. Voice agents handle calls in natural conversation. Multi-channel coverage, zero missed messages."
           features={[
             'WhatsApp Business API + Voice AI agents',
-            'Guardrails to reduce hallucinations & keep humans in control',
+            'Natural multi-turn conversations with memory',
             'Lead qualification & smart routing',
             '24/7 availability with human escalation',
           ]}
@@ -597,7 +635,7 @@ const ServicesSection = () => (
           icon={Target}
           label="02 — Sales Pipelines"
           title="B2B Outreach & Lead Automation"
-          body="From discovery to first reply — the entire sales pipeline, automated. Lead enrichment, email verification, AI-personalized outreach, smart follow-ups. Built for B2B agencies and sales teams."
+          body="From discovery to first reply — the entire sales pipeline, automated. Lead enrichment, email verification, AI-personalized outreach, smart follow-ups. Built for B2B agencies, sales teams, and service businesses with active outreach."
           features={[
             'Lead discovery, enrichment & email verification',
             'AI-drafted outreach with human approval',
@@ -611,7 +649,7 @@ const ServicesSection = () => (
           icon={Workflow}
           label="03 — Internal Operations"
           title="Back-Office Workflow Automation"
-          body="The invisible engine. Document automation, calendar sync, report generation, cross-tool data flows. Connect Gmail, Notion, Sheets, Airtable — designed to reduce repetitive manual work."
+          body="The invisible engine. Document automation, calendar sync, report generation, cross-tool data flows. Connect Gmail, Google Workspace, Notion, Sheets, Airtable — everything talks to everything, automatically."
           features={[
             'Email-to-document pipelines',
             'Calendar & scheduling automation',
@@ -624,7 +662,7 @@ const ServicesSection = () => (
           icon={Brain}
           label="04 — AI Agents"
           title="Custom AI Agents & Integrations"
-          body="Bespoke AI agents with tools and decision logic. AI drafts replies, scores leads, generates reports — you approve. Your workflows run smoother — with less manual work."
+          body="Bespoke AI agents with tools, memory, and decision logic. Smart automation with the Human Approval System. AI drafts replies, scores leads, generates reports — you approve. Zero hallucinations, full control."
           features={[
             'Multi-tool AI agents (Sheets, Gmail, Calendar)',
             'Human-in-the-loop approval flows',
@@ -638,6 +676,9 @@ const ServicesSection = () => (
   </section>
 );
 
+// =====================================================
+// METHOD / MANIFESTO SECTION
+// =====================================================
 const MethodSection = () => {
   const [ref, visible] = useReveal();
   return (
@@ -675,7 +716,7 @@ const MethodSection = () => {
           <p className="text-white/90">
             We build <em className="italic text-emerald-400">systems.</em> WhatsApp connects to your AI.
             AI talks to your CRM. CRM triggers your calendar. Calendar sends your reminders.
-            Reminders feed your reports. Your workflows run smoother.
+            Reminders feed your reports. Everything talks to everything — automatically.
           </p>
           <p className="font-display text-2xl md:text-3xl text-white italic pt-4">
             One conversation can trigger 15 actions.
@@ -693,13 +734,16 @@ const MethodSection = () => {
   );
 };
 
+// =====================================================
+// CASE STUDIES (Featured Work)
+// =====================================================
 const caseStudies = [
   {
     badge: 'Featured',
     industry: 'B2B Sales Agency',
     title: 'Government Contract Discovery & Outreach Engine',
     challenge: 'Manual sales research consumed 10+ hours daily. Tender opportunities were missed. Outreach was inconsistent and slow.',
-    solution: 'A four-workflow automation system that runs the entire B2B sales pipeline — from opportunity discovery to qualified prospects.',
+    solution: 'A four-workflow automation system that runs the entire B2B sales pipeline — from opportunity discovery to qualified replies.',
     pipeline: [
       'Daily SAM.gov tender ingestion → AI fit scoring',
       'Company matching via Apollo + email verification',
@@ -714,8 +758,8 @@ const caseStudies = [
     badge: 'Live',
     industry: 'E-commerce / Service Business',
     title: 'WhatsApp Customer Service AI Agent',
-    challenge: 'After-hours inquiries lost as missed messages. Every missed message can become lost revenue.',
-    solution: 'A WhatsApp + Telegram AI agent with memory, integrated with Google Sheets as a real-time database. Handles inquiries 24/7.',
+    challenge: 'After-hours inquiries lost as missed messages. Customer service team overwhelmed by repetitive questions.',
+    solution: 'A WhatsApp + Telegram AI agent with memory, integrated with Google Sheets as a real-time database. Handles inquiries 24/7, escalates when needed.',
     pipeline: [
       'WhatsApp message → AI agent with conversational memory',
       'Auto-logs customer data to Google Sheets database',
@@ -832,7 +876,8 @@ const CaseStudiesSection = () => (
           <em className="italic text-amber-300">Real impact.</em>
         </h2>
         <p className="mt-6 text-lg text-white/60 max-w-2xl leading-relaxed">
-          The architectures are real. The results are measured. The methodologies are repeatable.
+          Every project anonymized to protect client confidentiality. The architectures are real.
+          The results are measured. The methodologies are repeatable.
         </p>
       </div>
 
@@ -845,35 +890,38 @@ const CaseStudiesSection = () => (
   </section>
 );
 
+// =====================================================
+// INDUSTRIES SECTION
+// =====================================================
 const industries = [
   {
     name: 'E-commerce Shops',
-    body: 'Your store never closes. We build AI agents that handle WhatsApp inquiries, answer phone calls about orders, recover abandoned carts, and sync everything to Shopify automatically.',
+    body: 'Your store never closes. Your customer service shouldn\'t either. We build AI agents that handle WhatsApp inquiries, answer phone calls about orders, recover abandoned carts, and sync everything to Shopify automatically. 24/7.',
     tag: 'Shopify · WooCommerce',
   },
   {
     name: 'Real Estate Agencies',
-    body: 'Our AI handles WhatsApp leads, answers property inquiry calls, qualifies buyers, and books viewings — directly into your calendar.',
+    body: 'Inquiries don\'t wait for office hours. Neither should your responses. Our AI handles WhatsApp leads, answers property inquiry calls, qualifies buyers, and books viewings — directly into your calendar.',
     tag: 'Agencies · Solo agents',
   },
   {
     name: 'Salons & Clinics',
-    body: 'Your phone shouldn\'t ring during appointments. Our voice AI takes booking calls, our WhatsApp AI handles questions, our automation sends reminders and fills cancellations.',
+    body: 'Your phone shouldn\'t ring during appointments. Our voice AI takes booking calls, our WhatsApp AI handles questions, our automation sends reminders and fills cancellations. You focus on your clients.',
     tag: 'Beauty · Dental · Medical',
   },
   {
     name: 'Coaches & Consultants',
-    body: 'We automate discovery, qualify fit, deliver content, and handle onboarding — so you only spend time with ready-to-buy clients.',
+    body: 'Your time is your product. We automate discovery, qualify fit, deliver content, and handle onboarding — so you only spend time with ready-to-buy clients.',
     tag: 'Coaching · Consulting',
   },
   {
     name: 'Hotels & Hospitality',
-    body: 'Booking inquiries arrive at all hours. Our voice AI takes reservation calls, WhatsApp AI handles guest questions, and automation manages check-in flows.',
+    body: 'Booking inquiries arrive at all hours. Our voice AI takes reservation calls, WhatsApp AI handles guest questions, and automation manages check-in flows, room service requests, and post-stay follow-ups.',
     tag: 'Hotels · Restaurants · Delivery',
   },
   {
     name: 'B2B Sales Teams',
-    body: 'We build complete outreach engines — lead discovery, enrichment, AI-personalized emails, follow-up sequences. Your reps close, AI does the rest.',
+    body: 'Your sales pipeline shouldn\'t depend on manual research. We build complete outreach engines — lead discovery, enrichment, AI-personalized emails, follow-up sequences, reply handling. Your reps close, AI does the rest.',
     tag: 'Agencies · SaaS · Services',
   },
 ];
@@ -935,6 +983,9 @@ const IndustriesSection = () => {
   );
 };
 
+// =====================================================
+// PROCESS / TIMELINE
+// =====================================================
 const processSteps = [
   {
     phase: 'Phase 01',
@@ -1007,6 +1058,9 @@ const ProcessSection = () => (
   </section>
 );
 
+// =====================================================
+// FOUNDER SECTION (About)
+// =====================================================
 const FounderSection = () => {
   const [ref, visible] = useReveal();
   return (
@@ -1015,12 +1069,24 @@ const FounderSection = () => {
 
       <div className="max-w-6xl mx-auto px-6 lg:px-12">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
+          {/* Photo / Visual */}
           <div className={`lg:col-span-5 transition-all duration-1000 ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
             <div className="relative aspect-[4/5] max-w-md">
               <div className="absolute -inset-4 bg-gradient-to-br from-emerald-400/20 to-amber-400/10 rounded-3xl blur-2xl" />
               <div className="relative w-full h-full rounded-3xl bg-gradient-to-br from-zinc-800 to-zinc-900 border border-white/10 overflow-hidden">
+                {/*
+                  TO ADD YOUR PHOTO:
+                  1. Save your edited photo as /public/hansani.jpg
+                  2. Replace the <div> below with:
+                     <img src="/hansani.jpg" alt="Hansani Kavindi" className="w-full h-full object-cover" />
+                */}
                 <div className="w-full h-full flex items-center justify-center">
-                   <img src="/hansani.jpg" alt="Hansani Kavindi" className="w-full h-full object-cover" />
+                  <div className="text-center p-8">
+                    <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-emerald-400/20 to-amber-400/20 border border-white/10 flex items-center justify-center mb-6">
+                      <span className="font-display text-5xl text-white/80">H</span>
+                    </div>
+                    <div className="text-white/40 text-sm">[Add /hansani.jpg]</div>
+                  </div>
                 </div>
               </div>
               <div className="absolute -bottom-4 -right-4 px-4 py-3 bg-emerald-400 text-black rounded-2xl font-display italic shadow-xl">
@@ -1029,6 +1095,7 @@ const FounderSection = () => {
             </div>
           </div>
 
+          {/* Story */}
           <div className={`lg:col-span-7 transition-all duration-1000 delay-200 ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
             <ChapterMark part="Pt. 08" title="The Founder" color="amber" />
 
@@ -1036,7 +1103,7 @@ const FounderSection = () => {
               Built by an{' '}
               <em className="italic text-amber-300">automation</em>
               <br />
-              specialist.
+              obsessive.
             </h2>
 
             <div className="space-y-5 text-lg text-white/70 leading-relaxed mb-10 pb-10 border-b border-white/10">
@@ -1044,10 +1111,13 @@ const FounderSection = () => {
                 Hi, I'm <span className="text-white font-medium">Hansani Kavindi</span> — founder of Kavi Automation.
               </p>
               <p>
-                I build AI automation systems for small businesses that want faster replies, cleaner workflows, and less manual work.
+                I started building automation workflows because I watched too many small business owners drowning
+                in repetitive work that machines should handle. Today, I build complete AI systems for businesses
+                across e-commerce, real estate, hospitality, and B2B sales.
               </p>
               <p className="text-white/90">
-                My approach is simple: <em className="italic text-emerald-400">AI handles repetitive tasks, humans stay in control, and every workflow is designed with approval, safety, and brand consistency in mind.</em>
+                My signature approach: <em className="italic text-emerald-400">AI does the work, humans stay in control.</em>{' '}
+                No hallucinations. No off-brand chaos. Just intelligent systems that make you faster, not foolish.
               </p>
             </div>
 
@@ -1068,6 +1138,9 @@ const FounderSection = () => {
   );
 };
 
+// =====================================================
+// WHY US
+// =====================================================
 const whyUs = [
   {
     icon: Shield,
@@ -1087,7 +1160,7 @@ const whyUs = [
   {
     icon: Network,
     title: 'We see the whole picture.',
-    body: 'Most experts build one piece. We connect every piece. One unified system. Your entire business, running itself.',
+    body: 'Most experts build one piece. We connect every piece. WhatsApp, voice, CRM, calendar, reports — one unified system. Your entire business, running itself.',
   },
 ];
 
@@ -1133,6 +1206,9 @@ const WhyUsSection = () => (
   </section>
 );
 
+// =====================================================
+// PACKAGES (NO PRICES)
+// =====================================================
 const packages = [
   {
     icon: '🌱',
@@ -1246,30 +1322,37 @@ const PackagesSection = () => (
   </section>
 );
 
+// =====================================================
+// FAQ
+// =====================================================
 const faqs = [
   {
     q: 'How long does setup typically take?',
-    a: 'Anywhere from 1 week for a focused starter project to 4–6 weeks for full enterprise automation. We\'ll give you exact timelines after the discovery call based on your specific scope.',
+    a: 'Anywhere from 1 week for a focused starter project to 4–6 weeks for full enterprise automation. We\'ll give you exact timelines after the discovery call based on your specific scope and complexity.',
   },
   {
     q: 'Do I need any technical knowledge to use this?',
-    a: 'No. We handle all the technical setup. You\'ll get an intuitive interface — usually WhatsApp itself or a simple dashboard. We also train your team.',
+    a: 'No. We handle all the technical setup. You\'ll get an intuitive interface — usually WhatsApp itself or a simple dashboard — to interact with your automation. We also train your team during launch.',
   },
   {
     q: 'What happens if the AI makes a mistake?',
-    a: 'AI drafts the response — you approve it before it sends. For high-stakes conversations, you stay in the loop. Always.',
+    a: 'That\'s exactly why we built the Human Approval System. AI drafts the response — you (or your team) approve it before it sends, via Telegram or your dashboard. For high-stakes conversations, you stay in the loop. Always.',
   },
   {
     q: 'Can you integrate with my existing tools?',
-    a: 'Almost certainly yes. We work with Airtable, Google Workspace, Notion, Telegram, WhatsApp API, and 400+ other tools.',
+    a: 'Almost certainly yes. We work with Airtable, Google Workspace, Notion, Telegram, WhatsApp Business API, and 400+ other tools through n8n. If your tool has an API, we can connect to it.',
   },
   {
     q: 'What\'s the difference between WhatsApp AI and Voice AI?',
-    a: 'WhatsApp AI handles text-based conversations. Voice AI handles actual phone calls in natural conversation. Many clients use both.',
+    a: 'WhatsApp AI handles text-based conversations — questions, lead capture, bookings via chat. Voice AI handles actual phone calls — your business answers calls 24/7 in natural conversation. Many clients use both for full coverage.',
   },
   {
     q: 'Do you offer ongoing support after launch?',
-    a: 'Yes. Every package includes post-launch support and revisions.',
+    a: 'Yes. Every package includes post-launch support and unlimited revisions. We can also set up monthly maintenance for ongoing improvements as your business grows.',
+  },
+  {
+    q: 'Is my data safe with these AI integrations?',
+    a: 'Absolutely. We use industry-standard encryption, your data stays in your tools (we don\'t store it), and we sign NDAs for sensitive projects. You own your data, your workflows, your customer information.',
   },
 ];
 
@@ -1323,6 +1406,9 @@ const FAQSection = () => {
   );
 };
 
+// =====================================================
+// FINAL CTA
+// =====================================================
 const FinalCTA = () => (
   <section id="book" className="relative py-20 md:py-32 overflow-hidden">
     <div className="absolute inset-0 -z-10">
@@ -1341,7 +1427,7 @@ const FinalCTA = () => (
 
       <p className="text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl mx-auto mb-12">
         Book a free 30-minute automation audit. We'll show you exactly where your business is
-        leaking time and money — and how to fix it.
+        leaking time and money — and how to fix it. No pressure. No pitch. Just clarity.
       </p>
 
       <button
@@ -1353,12 +1439,15 @@ const FinalCTA = () => (
       </button>
 
       <p className="mt-8 text-sm text-white/40">
-        30 minutes · Free · No commitment
+        30 minutes · Free · No commitment · Available Mon–Fri
       </p>
     </div>
   </section>
 );
 
+// =====================================================
+// FOOTER
+// =====================================================
 const Footer = () => (
   <footer className="relative border-t border-white/5 py-16">
     <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -1374,7 +1463,7 @@ const Footer = () => (
             </div>
           </div>
           <p className="text-white/50 max-w-sm leading-relaxed mb-6">
-            We build AI automation systems for WhatsApp, voice, CRM, and customer workflows.
+            AI agents and automation systems that turn conversations into revenue — while you sleep.
           </p>
           <p className="text-xs text-white/30 italic font-display">
             From Romania. Reaching the world.
@@ -1388,6 +1477,7 @@ const Footer = () => (
             <li><a href="#services" className="hover:text-emerald-400 transition-colors">Voice AI Agents</a></li>
             <li><a href="#services" className="hover:text-emerald-400 transition-colors">Sales Pipelines</a></li>
             <li><a href="#services" className="hover:text-emerald-400 transition-colors">Internal Operations</a></li>
+            <li><a href="#services" className="hover:text-emerald-400 transition-colors">Custom AI Agents</a></li>
           </ul>
         </div>
 
@@ -1395,6 +1485,7 @@ const Footer = () => (
           <h4 className="text-xs uppercase tracking-[0.25em] text-white/40 mb-4">Connect</h4>
           <ul className="space-y-2 text-white/70 text-sm">
             <li><a href="#" className="hover:text-emerald-400 transition-colors">LinkedIn</a></li>
+            <li><a href="#" className="hover:text-emerald-400 transition-colors">Fiverr Profile</a></li>
             <li><a href="mailto:hello@kaviautomation.com" className="hover:text-emerald-400 transition-colors">hello@kaviautomation.com</a></li>
             <li><button onClick={openBookingModal} className="hover:text-emerald-400 transition-colors text-left">Book a Call</button></li>
           </ul>
@@ -1409,6 +1500,9 @@ const Footer = () => (
   </footer>
 );
 
+// =====================================================
+// AI CHATBOT WIDGET (Floating)
+// =====================================================
 const ChatbotWidget = () => {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(0);
@@ -1431,12 +1525,12 @@ const ChatbotWidget = () => {
     if (reply.includes('exploring')) {
       botResponse = "Great! What kind of business do you run? E-commerce, real estate, hospitality, or something else?";
     } else if (reply.includes('pricing')) {
-      botResponse = "We have 3 packages — Starter, Business, and Enterprise. Pricing best discussed on a free audit.";
+      botResponse = "We have 3 packages — Starter, Business, and Enterprise. Pricing depends on scope, best discussed on a free audit. Want me to open the inquiry form for you?";
     } else if (reply.includes('Book')) {
       botResponse = "Opening the booking form for you now... ✨";
       setTimeout(() => openBookingModal(), 600);
     } else {
-      botResponse = "We automate WhatsApp/Voice conversations, sales pipelines, and internal ops. What's the most repetitive task in your business right now?";
+      botResponse = "We automate WhatsApp/Voice conversations, sales pipelines, internal ops, and custom AI agents. What's the most repetitive task in your business right now?";
     }
 
     setMessages([...messages, userMsg, { from: 'bot', text: botResponse }]);
@@ -1451,7 +1545,7 @@ const ChatbotWidget = () => {
       userMsg,
       {
         from: 'bot',
-        text: "Thanks! Hansani will personally respond within 24 hours. For faster booking, click 'Book Free Audit' above.",
+        text: "Thanks for the message! Hansani will personally respond within 24 hours. For faster booking, click 'Book Free Audit' above 👆",
       },
     ]);
     setInput('');
@@ -1460,9 +1554,10 @@ const ChatbotWidget = () => {
 
   return (
     <>
+      {/* Toggle Button */}
       <button
         onClick={() => setOpen(!open)}
-        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-2xl transition-all hover:scale-110 ${
+        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-2xl shadow-emerald-400/30 transition-all hover:scale-110 ${
           open ? 'bg-zinc-800' : 'bg-emerald-400'
         }`}
       >
@@ -1471,17 +1566,25 @@ const ChatbotWidget = () => {
         ) : (
           <MessageCircle className="w-6 h-6 text-black mx-auto" strokeWidth={2} />
         )}
+        {!open && (
+          <span className="absolute top-0 right-0 w-3 h-3 bg-amber-300 rounded-full border-2 border-black animate-pulse" />
+        )}
       </button>
 
+      {/* Chat Panel */}
       <div
-        className={`fixed bottom-24 right-6 z-50 w-[calc(100vw-3rem)] sm:w-96 max-h-[600px] bg-zinc-950 border border-white/10 rounded-2xl shadow-2xl transition-all overflow-hidden flex flex-col ${
+        className={`fixed bottom-24 right-6 z-50 w-[calc(100vw-3rem)] sm:w-96 max-h-[600px] bg-zinc-950 border border-white/10 rounded-2xl shadow-2xl shadow-black/50 transition-all overflow-hidden flex flex-col ${
           open ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-8 pointer-events-none'
         }`}
       >
+        {/* Header */}
         <div className="p-5 bg-gradient-to-br from-emerald-950/40 to-zinc-900 border-b border-white/10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-emerald-400 flex items-center justify-center">
-              <span className="font-display font-bold text-black">K</span>
+            <div className="relative">
+              <div className="w-10 h-10 rounded-full bg-emerald-400 flex items-center justify-center">
+                <span className="font-display font-bold text-black">K</span>
+              </div>
+              <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 rounded-full border-2 border-zinc-950" />
             </div>
             <div>
               <div className="font-display text-white">Kavi AI Assistant</div>
@@ -1493,6 +1596,7 @@ const ChatbotWidget = () => {
           </div>
         </div>
 
+        {/* Messages */}
         <div className="flex-1 overflow-y-auto p-5 space-y-4 max-h-80">
           {messages.map((msg, i) => (
             <div
@@ -1512,13 +1616,14 @@ const ChatbotWidget = () => {
           ))}
         </div>
 
+        {/* Quick Replies */}
         {step === 0 && (
           <div className="px-5 pb-3 flex flex-wrap gap-2">
             {quickReplies.map((reply, i) => (
               <button
                 key={i}
                 onClick={() => handleQuickReply(reply)}
-                className="text-xs px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-white/70 hover:text-white transition-colors"
+                className="text-xs px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-white/70 hover:text-white transition-colors"
               >
                 {reply}
               </button>
@@ -1526,6 +1631,7 @@ const ChatbotWidget = () => {
           </div>
         )}
 
+        {/* Input */}
         <div className="p-4 border-t border-white/10 flex items-center gap-2">
           <input
             type="text"
@@ -1533,20 +1639,27 @@ const ChatbotWidget = () => {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Type your message..."
-            className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-400/50"
+            className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-2.5 text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-emerald-400/50"
           />
           <button
             onClick={handleSend}
-            className="w-10 h-10 bg-emerald-400 hover:bg-emerald-300 rounded-full flex items-center justify-center"
+            className="w-10 h-10 bg-emerald-400 hover:bg-emerald-300 rounded-full flex items-center justify-center transition-colors"
           >
             <Send className="w-4 h-4 text-black" />
           </button>
+        </div>
+
+        <div className="px-5 pb-3 text-[10px] text-white/30 text-center">
+          Powered by Kavi Automation · Built with n8n + OpenAI
         </div>
       </div>
     </>
   );
 };
 
+// =====================================================
+// BOOKING MODAL (Smart Inquiry Form)
+// =====================================================
 const BookingModal = () => {
   const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -1560,6 +1673,7 @@ const BookingModal = () => {
     contactPreference: 'whatsapp',
   });
 
+  // Listen for global open events
   useEffect(() => {
     const handler = () => {
       setOpen(true);
@@ -1569,15 +1683,67 @@ const BookingModal = () => {
     return () => window.removeEventListener('kavi:openBooking', handler);
   }, []);
 
+  // Lock body scroll when modal open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
+
+  // Close on Escape
+  useEffect(() => {
+    const handler = (e) => { if (e.key === 'Escape') setOpen(false); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    setSubmitted(true);
-    setSubmitting(false);
+
+    // ====================================================
+    // TO CONNECT TO YOUR n8n WEBHOOK:
+    // 1. Create a webhook trigger in n8n
+    // 2. Replace the URL below with your webhook URL
+    // 3. Uncomment the fetch block
+    // ====================================================
+    const webhookUrl = 'YOUR_N8N_WEBHOOK_URL_HERE';
+
+    try {
+      // Uncomment when webhook is ready:
+      /*
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...form,
+          timestamp: new Date().toISOString(),
+          source: 'kaviautomation.com',
+        }),
+      });
+      */
+
+      // Simulate network delay for now
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      setSubmitted(true);
+    } catch (err) {
+      alert('Something went wrong. Please email hello@kaviautomation.com');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (!open) return null;
+
+  const responseTime =
+    form.contactPreference === 'email'
+      ? '24 hours via email'
+      : form.contactPreference === 'whatsapp'
+      ? '12 hours on WhatsApp'
+      : '24 hours with a Calendly link';
 
   return (
     <div
@@ -1590,7 +1756,8 @@ const BookingModal = () => {
       >
         <button
           onClick={() => setOpen(false)}
-          className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center z-10"
+          className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors z-10"
+          aria-label="Close"
         >
           <X className="w-4 h-4 text-white/60" />
         </button>
@@ -1602,58 +1769,215 @@ const BookingModal = () => {
                 Free Automation Audit
               </div>
               <h3 className="font-display text-3xl md:text-4xl text-white leading-tight mb-3">
-                Tell us about your <em className="italic text-emerald-400">business.</em>
+                Tell us about your{' '}
+                <em className="italic text-emerald-400">business.</em>
               </h3>
+              <p className="text-white/60 text-sm">
+                Fill this in 60 seconds. We respond on your terms — within 12 hours.
+              </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-emerald-400/50 transition-colors text-sm"
+                    placeholder="Your name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-emerald-400/50 transition-colors text-sm"
+                    placeholder="you@business.com"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">
+                  WhatsApp Number
+                </label>
                 <input
-                  type="text"
+                  type="tel"
                   required
-                  placeholder="Name"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm"
-                />
-                <input
-                  type="email"
-                  required
-                  placeholder="Email"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm"
+                  value={form.whatsapp}
+                  onChange={(e) => setForm({ ...form, whatsapp: e.target.value })}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-emerald-400/50 transition-colors text-sm"
+                  placeholder="+40 7XX XXX XXX (with country code)"
                 />
               </div>
-              <input
-                type="tel"
-                required
-                placeholder="WhatsApp Number"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm"
-              />
-              <select required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm appearance-none">
-                <option value="">Select industry</option>
-                <option value="ecommerce">E-commerce</option>
-                <option value="realestate">Real Estate</option>
-                <option value="other">Other</option>
-              </select>
-              <textarea
-                required
-                rows={3}
-                placeholder="What's your biggest automation challenge?"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm resize-none"
-              />
+
+              <div>
+                <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">
+                  Business Type
+                </label>
+                <select
+                  required
+                  value={form.businessType}
+                  onChange={(e) => setForm({ ...form, businessType: e.target.value })}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400/50 transition-colors text-sm appearance-none"
+                  style={{
+                    backgroundImage:
+                      "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")",
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 1rem center',
+                    paddingRight: '2.5rem',
+                  }}
+                >
+                  <option value="" className="bg-zinc-900">Select your industry</option>
+                  <option value="ecommerce" className="bg-zinc-900">E-commerce / Online Store</option>
+                  <option value="real-estate" className="bg-zinc-900">Real Estate</option>
+                  <option value="hospitality" className="bg-zinc-900">Hotels / Restaurants</option>
+                  <option value="salon-clinic" className="bg-zinc-900">Salon / Clinic</option>
+                  <option value="b2b-sales" className="bg-zinc-900">B2B Sales / Agency</option>
+                  <option value="coaching" className="bg-zinc-900">Coaching / Consulting</option>
+                  <option value="other" className="bg-zinc-900">Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">
+                  What's your biggest automation challenge?
+                </label>
+                <textarea
+                  required
+                  rows={3}
+                  value={form.challenge}
+                  onChange={(e) => setForm({ ...form, challenge: e.target.value })}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-emerald-400/50 transition-colors text-sm resize-none"
+                  placeholder="e.g., Missing customer messages after hours, manual data entry, repetitive WhatsApp inquiries..."
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-3">
+                  How would you like to chat?
+                </label>
+                <div className="space-y-2">
+                  {[
+                    {
+                      value: 'whatsapp',
+                      label: 'WhatsApp message',
+                      sub: 'Recommended — async & detailed',
+                      icon: MessageCircle,
+                    },
+                    {
+                      value: 'email',
+                      label: 'Email',
+                      sub: 'We respond within 24 hours',
+                      icon: Mail,
+                    },
+                    {
+                      value: 'call',
+                      label: 'Voice call',
+                      sub: "We'll send you a Calendly link",
+                      icon: Phone,
+                    },
+                  ].map((opt) => {
+                    const Icon = opt.icon;
+                    const selected = form.contactPreference === opt.value;
+                    return (
+                      <label
+                        key={opt.value}
+                        className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
+                          selected
+                            ? 'bg-emerald-400/10 border-emerald-400/40'
+                            : 'bg-white/5 border-white/10 hover:border-white/20'
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="contactPreference"
+                          value={opt.value}
+                          checked={selected}
+                          onChange={(e) => setForm({ ...form, contactPreference: e.target.value })}
+                          className="sr-only"
+                        />
+                        <div
+                          className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                            selected ? 'bg-emerald-400 text-black' : 'bg-white/5 text-white/60'
+                          }`}
+                        >
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="text-white text-sm font-medium">{opt.label}</div>
+                          <div className="text-white/50 text-xs mt-0.5">{opt.sub}</div>
+                        </div>
+                        <div
+                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                            selected ? 'border-emerald-400 bg-emerald-400' : 'border-white/20'
+                          }`}
+                        >
+                          {selected && <div className="w-2 h-2 rounded-full bg-black" />}
+                        </div>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full py-4 bg-emerald-400 hover:bg-emerald-300 text-black font-medium rounded-full transition-all flex items-center justify-center gap-2"
+                className="w-full py-4 bg-emerald-400 hover:bg-emerald-300 text-black font-medium rounded-full transition-all hover:scale-[1.02] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {submitting ? 'Sending...' : 'Send Inquiry'}
+                {submitting ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    Send My Inquiry
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
               </button>
+
+              <p className="text-xs text-white/40 text-center">
+                By submitting, you agree to receive a response from Kavi Automation. We never share your info.
+              </p>
             </form>
           </div>
         ) : (
           <div className="p-10 text-center">
-            <CheckCircle2 className="w-16 h-16 mx-auto mb-6 text-emerald-400" />
-            <h3 className="font-display text-3xl text-white mb-3">Thank you!</h3>
-            <p className="text-white/70 mb-8">Hansani will personally respond within 12-24 hours.</p>
-            <button onClick={() => setOpen(false)} className="px-6 py-3 bg-white/5 text-white rounded-full border border-white/10">Close</button>
+            <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-emerald-400 flex items-center justify-center">
+              <CheckCircle2 className="w-8 h-8 text-black" />
+            </div>
+            <h3 className="font-display text-3xl text-white mb-3">
+              Thank you,{' '}
+              <em className="italic text-emerald-400">
+                {form.name.split(' ')[0] || 'friend'}!
+              </em>
+            </h3>
+            <p className="text-white/70 leading-relaxed max-w-sm mx-auto mb-6">
+              Your inquiry has been received. Hansani will personally respond within{' '}
+              <span className="text-white">{responseTime}</span>.
+            </p>
+            <p className="text-white/40 text-sm mb-8">
+              You'll receive a confirmation shortly. Check your spam folder just in case.
+            </p>
+            <button
+              onClick={() => setOpen(false)}
+              className="px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-full transition-colors text-sm border border-white/10"
+            >
+              Close
+            </button>
           </div>
         )}
       </div>
@@ -1661,6 +1985,9 @@ const BookingModal = () => {
   );
 };
 
+// =====================================================
+// MAIN PAGE
+// =====================================================
 export default function KaviAutomationLanding() {
   return (
     <div className="min-h-screen bg-black text-white font-body antialiased relative overflow-x-hidden">
