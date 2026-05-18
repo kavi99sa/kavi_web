@@ -1901,34 +1901,42 @@ const ChatbotWidget = () => {
     setStep(step + 1);
   };
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
     const userMsg = { from: 'user', text: input };
-
-    // Value-First Email Capture trigger after 4+ messages
-    const messageCount = messages.filter(m => m.from === 'user').length;
-    let botText = "";
-
-    if (messageCount >= 3 && !messages.some(m => m.text && m.text.includes('Blueprint PDF'))) {
-      // After 4 user messages, offer the Blueprint PDF
-      botText = "I've got enough to build you a clear picture. Want me to send you a full Custom Automation Blueprint PDF? It includes:\n\n✓ Specific automations for your business\n✓ Sensory marketing tactics (Apple/Netflix/Starbucks level)\n✓ Exact pricing tiers\n✓ 90-day ROI projection\n\nJust drop your email and I'll have Hansani send it within 24 hours. Or click 'Free Audit' above to book a 15-min call.";
-    } else if (input.toLowerCase().includes('@') && input.includes('.')) {
-      // Detected email
-      botText = "Perfect! I've saved your email. Hansani will send your personalized AI Blueprint within 24 hours. Anything specific you want her to include? (e.g., focus on WhatsApp, or sales pipeline, or something else)";
-    } else {
-      botText = "Got it. Tell me more — what's the volume? How many customers/inquiries per week? The honest truth is automation only pays back if your volume justifies it.";
-    }
-
-    setMessages([
-      ...messages,
-      userMsg,
-      { from: 'bot', text: botText },
-    ]);
+    
+    // 1. ඔයා ටයිප් කරන මැසේජ් එක ස්ක්‍රීන් එකට ක්ෂණිකව දානවා
+    setMessages(prev => [...prev, userMsg]);
+    const currentInput = input;
     setInput('');
-    setStep(step + 1);
-  };
 
-  return (
+    try {
+        // 2. n8n ලයිව් Production Webhook එකට සැබෑ මැසේජ් එක යවනවා
+        const response = await fetch('https://n8n.kaviautomation.com/webhook/kavi-chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                user_message: currentInput,
+                session_id: 'kavi-web-live-chat-session'
+            })
+        });
+
+        const data = await response.json();
+        
+        // n8n එකෙන් OpenAI හරහා එන සැබෑ උත්තරය ලස්සනට අල්ලගන්නවා
+        const botText = data.output || data.response || data.reply || data.text || (typeof data === 'string' ? data : "Got it! Let's continue.");
+
+        // 3. කවි AI ගේ නියම ලයිව් උත්තරය ස්ක්‍රීන් එක මත පෙන්වනවා
+        setMessages(prev => [...prev, { from: 'bot', text: botText }]);
+    } catch (err) {
+        console.error("Chat Error:", err);
+        setMessages(prev => [...prev, { from: 'bot', text: "I'm having a bit of trouble connecting to my brain right now. Please try again or email hello@kaviautomation.com" }]);
+    }
+    
+    setStep(prev => prev + 1);
+};
+
+return (
     <>
       {/* Toggle Button */}
       <button
