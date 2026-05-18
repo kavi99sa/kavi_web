@@ -1881,12 +1881,12 @@ const ChatbotWidget = () => {
     return () => window.removeEventListener('kavi:openChat', handleOpen);
   }, []);
 
-  const quickReplies = [
+  const [quickReplies, setQuickReplies] = useState([
     "I'm exploring AI for my business",
-    'Tell me about pricing',
-    'Book a call with Hansani',
-    'What can you automate?',
-  ];
+    "Tell me about pricing",
+    "Book a call with Hansani",
+    "What can you automate?"
+  ]);
 
   const handleQuickReply = (reply) => {
     const userMsg = { from: 'user', text: reply };
@@ -1916,6 +1916,7 @@ const ChatbotWidget = () => {
     const currentInput = input;
     setInput('');
     setIsTyping(true);
+    setQuickReplies([]);
 
     try {
         // 2. n8n ලයිව් Production Webhook එකට සැබෑ මැසේජ් එක යවනවා
@@ -1932,10 +1933,22 @@ const ChatbotWidget = () => {
         
         // n8n එකෙන් OpenAI හරහා එන සැබෑ උත්තරය ලස්සනට අල්ලගන්නවා
         const botText = data.output || data.response || data.reply || data.text || (typeof data === 'string' ? data : "Got it! Let's continue.");
+    
+    let displayLines = botText;
+    if (botText.includes('[OPTIONS]:')) {
+      const parts = botText.split('[OPTIONS]:');
+      displayLines = parts[0].trim();
+      try {
+        const optionsArray = JSON.parse(parts[1].trim());
+        if (Array.isArray(optionsArray)) setQuickReplies(optionsArray);
+      } catch (e) {
+        const rawOpts = parts[1].replace(/[\[\]"']/g, '').split(',');
+        setQuickReplies(rawOpts.map(o => o.trim()).filter(Boolean));
+      }
+    }
 
-        // 3. කවි AI ගේ නියම ලයිව් උත්තරය ස්ක්‍රීන් එක මත පෙන්වනවා
-        setMessages(prev => [...prev, { from: 'bot', text: botText }]);
-      setIsTyping(false);
+    setMessages(prev => [...prev, { from: 'bot', text: displayLines }]);
+    setIsTyping(false);
     } catch (err) {
         console.error("Chat Error:", err);
         setMessages(prev => [...prev, { from: 'bot', text: "I'm having a bit of trouble connecting to my brain right now. Please try again or email hello@kaviautomation.com" }]);
@@ -2018,7 +2031,7 @@ return (
         </div>
 
         {/* Quick Replies */}
-        {step === 0 && (
+        {quickReplies.length > 0 && (
           <div className="px-5 pb-3 flex flex-wrap gap-2">
             {quickReplies.map((reply, i) => (
               <button
