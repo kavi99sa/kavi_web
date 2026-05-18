@@ -41,6 +41,12 @@ const openBookingModal = () => {
   }
 };
 
+const openChatWidget = () => {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('kavi:openChat'));
+  }
+};
+
 // =====================================================
 // FONT LOADER & GLOBAL STYLES
 // =====================================================
@@ -250,7 +256,7 @@ const Nav = () => {
           onClick={openBookingModal}
           className="text-sm px-5 py-2.5 bg-emerald-400 hover:bg-emerald-300 text-black font-medium rounded-full transition-all hover:scale-105"
         >
-          Book Free Audit
+          Free Audit
         </button>
       </div>
     </nav>
@@ -492,25 +498,30 @@ const Hero = () => (
           </h1>
 
           <p className="reveal reveal-d2 mt-8 text-lg md:text-xl text-white/70 max-w-xl leading-relaxed">
-            We build AI automation systems for WhatsApp, voice, CRM, and customer workflows — so
-            your business responds faster without losing the human touch.
+            Confused about where to start with AI automation? Talk to Kavi AI and get a personalized
+            roadmap for your business — WhatsApp, chat, CRM, bookings, and follow-ups. In 5 minutes. Free.
+          </p>
+          <p className="reveal reveal-d2 mt-3 text-sm text-emerald-400/80 flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4" />
+            No email required. No credit card. Just talk.
           </p>
 
           <div className="reveal reveal-d3 mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
             <button
-              onClick={openBookingModal}
+              onClick={openChatWidget}
               className="group inline-flex items-center gap-3 px-7 py-4 bg-emerald-400 hover:bg-emerald-300 text-black font-medium rounded-full transition-all hover:scale-105"
             >
-              Book Your Free Automation Audit
+              <MessageCircle className="w-5 h-5" />
+              Talk to Kavi AI
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
-            <a
-              href="#work"
-              className="group inline-flex items-center gap-2 px-7 py-4 text-white/80 hover:text-white transition-colors"
+            <button
+              onClick={openBookingModal}
+              className="group inline-flex items-center gap-2 px-7 py-4 border border-white/20 hover:border-emerald-400 text-white/80 hover:text-emerald-400 rounded-full transition-all"
             >
-              See our work
+              Book Free Audit
               <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-            </a>
+            </button>
           </div>
 
           <div className="reveal reveal-d4 mt-10">
@@ -574,43 +585,43 @@ const PainSection = () => (
       <div className="max-w-3xl mb-14">
         <ChapterMark part="Pt. 01" title="The Problem" color="amber" />
         <h2 className="font-display text-4xl md:text-6xl leading-[1.05] text-white">
-          The cost of being{' '}
-          <em className="italic text-white/50">human</em>
+          You know AI{' '}
+          <em className="italic text-white/50">will help.</em>
           <br />
-          in a 24/7 world.
+          You just don't know where to start.
         </h2>
         <p className="mt-6 text-lg text-white/50 max-w-xl leading-relaxed">
-          You can't be everywhere. Your business shouldn't have to choose.
+          Every business owner faces the same confusion. Here's what it sounds like.
         </p>
       </div>
 
       <div className="space-y-12 md:space-y-16 max-w-3xl mx-auto">
         <PainScenario
-          time="11:43 PM"
-          mood="Exhausted"
-          title="Your phone buzzes. Again."
-          body="Another customer asking the same question you've answered 50 times today. You're tired. You'll reply tomorrow. By tomorrow, they've already bought from someone else."
+          time="2:47 PM"
+          mood="Overwhelmed"
+          title="I know AI can help. I just don't know where."
+          body="You've watched 20 YouTube tutorials. Bookmarked 15 tools. Read about ChatGPT, n8n, Zapier, Make. Everyone's selling something. Nothing tells you what's right for YOUR business."
           delay={0}
         />
         <PainScenario
-          time="2:17 PM"
-          mood="In a meeting"
-          title="The phone rings — you can't answer."
-          body="A potential client calls during your meeting. You miss it. They don't leave a voicemail. They simply call your competitor instead. You'll never know who they were."
+          time="11:18 AM"
+          mood="Decision Fatigue"
+          title="Three consultants. Three prices. Three plans."
+          body="One says €500. One says €5,000. One says 'it depends.' You don't know who to trust. So you wait. Another month passes. Your competitors don't."
           delay={100}
         />
         <PainScenario
-          time="9:04 AM"
-          mood="Stuck in traffic"
-          title="Three inquiries. Two missed calls. Zero replies."
-          body="By the time you reach the office, your day is already behind. Hot leads have gone cold. Opportunities have walked away. And you haven't even had your coffee."
+          time="8:32 PM"
+          mood="Doubting"
+          title="What if I invest in the wrong thing?"
+          body="The fear isn't the money. It's wasting time on a system that won't move the needle. You need clarity. Not another sales pitch."
           delay={200}
         />
         <PainScenario
-          time="Every week"
+          time="Every Week"
           mood="Drowning"
-          title="15 hours lost to data entry."
-          body="Your team types lead info into the CRM. Manually. Repeatedly. That's a full-time job — wasted on tasks a machine should be doing. While they type, sales calls go unmade."
+          title="Same questions. Different customers. All day."
+          body="Hours lost to repetitive WhatsApp messages, missed inquiries, and follow-ups that never happen. Your real work waits while you answer the same five questions on repeat."
           delay={300}
         />
       </div>
@@ -651,44 +662,44 @@ const TransformSection = () => (
       <div className="max-w-3xl mb-14">
         <ChapterMark part="Pt. 02" title="The Promise" />
         <h2 className="font-display text-4xl md:text-6xl leading-[1.05] text-white">
-          Your business{' '}
-          <em className="italic text-emerald-400">runs itself.</em>
+          Get clarity in{' '}
+          <em className="italic text-emerald-400">5 minutes.</em>
           <br />
-          You finally{' '}
-          <em className="italic text-white/60">breathe.</em>
+          Not another{' '}
+          <em className="italic text-white/60">sales call.</em>
         </h2>
         <p className="mt-6 text-lg text-white/50 max-w-xl leading-relaxed">
-          Same scenarios. Different ending. Now imagine this instead.
+          Two ways to start. Both free. Talk to Kavi AI for instant clarity, or book Hansani for hands-on planning.
         </p>
       </div>
 
       <div className="space-y-12 md:space-y-16 max-w-3xl mx-auto">
         <TransformScenario
-          time="11:43 PM"
-          mood="Asleep"
-          title="Your AI replies in 3 seconds."
-          body="Friendly. Accurate. On-brand. The customer asks, gets answered, and buys. Your AI logs the sale, updates inventory, and sends a thank-you message. You sleep through all of it."
+          time="Anytime"
+          mood="Talk First"
+          title="Tell Kavi AI about your business."
+          body="In your own words. No forms. No calendar bookings. No commitment. Just a real conversation with an AI that knows automation — across 10+ industries, deeply."
           delay={0}
         />
         <TransformScenario
-          time="2:17 PM"
-          mood="In a meeting"
-          title="Your voice AI answers the call."
-          body="It greets the caller, qualifies their inquiry, and books a callback in your calendar. After your meeting, you see a hot lead waiting — already scheduled, already warm."
+          time="5 Minutes Later"
+          mood="Get Clarity"
+          title="Receive a personalized roadmap."
+          body="Kavi tells you exactly what to automate first, what it costs, what results to expect — and yes, sometimes what NOT to automate. Real advice, not a sales pitch."
           delay={100}
         />
         <TransformScenario
-          time="9:04 AM"
-          mood="Driving in"
-          title="Your dashboard greets you."
-          body="WhatsApp inquiries answered. Calls handled. Leads qualified, scored, synced to your CRM. You arrive to opportunities — not catch-up. You start the day already ahead."
+          time="Your Choice"
+          mood="Decide Confidently"
+          title="Hire us, or DIY. Either way, you win."
+          body="Want us to build it? Book Hansani for a 15-minute strategy call. Want to DIY? Take the blueprint and run with it. You leave with answers — not more questions."
           delay={200}
         />
         <TransformScenario
-          time="Every week"
-          mood="Focused"
-          title="Your team closes deals."
-          body="Every lead auto-logged. Every follow-up auto-sent. Every report auto-generated. Sales conversations replace data entry. Revenue replaces busywork."
+          time="Always"
+          mood="Human Approval"
+          title="Real humans stay in control."
+          body="Every important action — sending proposals, replying to high-stakes inquiries, finalizing deals — passes through human approval. AI handles speed. You handle judgment."
           delay={300}
         />
       </div>
@@ -699,7 +710,7 @@ const TransformSection = () => (
 // =====================================================
 // SERVICES SECTION (4 NEW PILLARS)
 // =====================================================
-const ServiceCard = ({ icon: Icon, label, title, body, features, featured, delay }) => {
+const ServiceCard = ({ icon: Icon, label, title, body, features, priceRange, featured, delay }) => {
   const [ref, visible] = useReveal();
   return (
     <div
@@ -725,7 +736,7 @@ const ServiceCard = ({ icon: Icon, label, title, body, features, featured, delay
       <h3 className="font-display text-3xl md:text-4xl text-white mb-4 leading-tight">{title}</h3>
       <p className="text-white/60 leading-relaxed mb-6">{body}</p>
 
-      <ul className="space-y-2.5 text-sm text-white/60">
+      <ul className="space-y-2.5 text-sm text-white/60 mb-6">
         {features.map((f, i) => (
           <li key={i} className="flex items-start gap-2.5">
             <span className="text-emerald-400 mt-1 text-xs">→</span>
@@ -733,7 +744,126 @@ const ServiceCard = ({ icon: Icon, label, title, body, features, featured, delay
           </li>
         ))}
       </ul>
+
+      {priceRange && (
+        <div className="pt-6 border-t border-white/10">
+          <div className="text-xs uppercase tracking-[0.2em] text-white/40 mb-1">Investment</div>
+          <div className={`font-display text-2xl ${featured ? 'text-emerald-400' : 'text-white'}`}>
+            {priceRange}
+          </div>
+        </div>
+      )}
     </div>
+  );
+};
+
+// =====================================================
+// KAVI vs HANSANI - Role Clarification Section
+// =====================================================
+const KaviHansaniSection = () => {
+  const [ref, visible] = useReveal();
+  return (
+    <section ref={ref} className="relative py-20 md:py-28 bg-gradient-to-b from-zinc-950 via-black to-zinc-950">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <div className="max-w-3xl mb-16">
+          <ChapterMark part="Pt. 03" title="Who You'll Work With" />
+          <h2 className="font-display text-4xl md:text-6xl leading-[1.05] text-white">
+            One AI advisor.{' '}
+            <em className="italic text-amber-300">One human builder.</em>
+            <br />
+            Clear roles. Honest delivery.
+          </h2>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Kavi AI Card */}
+          <div className={`group relative p-8 md:p-10 rounded-3xl border border-emerald-400/30 bg-gradient-to-br from-emerald-950/30 to-zinc-900/40 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-14 h-14 rounded-2xl bg-emerald-400 text-black flex items-center justify-center">
+                <Brain className="w-7 h-7" strokeWidth={1.5} />
+              </div>
+              <div className="text-xs uppercase tracking-[0.25em] text-emerald-400">Kavi AI</div>
+            </div>
+            <h3 className="font-display text-3xl md:text-4xl text-white mb-4 leading-tight">
+              The AI Advisor
+            </h3>
+            <p className="text-white/70 leading-relaxed mb-6">
+              Available 24/7 right here on this website. Gives you a free automation roadmap based on your
+              specific business. Knows 10+ industries deeply. No sales pressure.
+            </p>
+            <ul className="space-y-2.5 text-sm text-white/60 mb-6">
+              <li className="flex items-start gap-2.5">
+                <span className="text-emerald-400 mt-1 text-xs">→</span>
+                <span>Free, instant, available anytime</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <span className="text-emerald-400 mt-1 text-xs">→</span>
+                <span>No email or signup required</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <span className="text-emerald-400 mt-1 text-xs">→</span>
+                <span>Industry-specific recommendations</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <span className="text-emerald-400 mt-1 text-xs">→</span>
+                <span>Honest "don't automate this" advice</span>
+              </li>
+            </ul>
+            <div className="pt-6 border-t border-white/10">
+              <button
+                onClick={openChatWidget}
+                className="text-emerald-400 font-display text-xl hover:text-emerald-300 transition-colors flex items-center gap-2"
+              >
+                Free · Talk to Kavi Now <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Hansani Card */}
+          <div className={`group relative p-8 md:p-10 rounded-3xl border border-amber-300/30 bg-gradient-to-br from-amber-950/20 to-zinc-900/40 transition-all duration-700 delay-150 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-14 h-14 rounded-2xl bg-amber-300 text-black flex items-center justify-center">
+                <Sparkles className="w-7 h-7" strokeWidth={1.5} />
+              </div>
+              <div className="text-xs uppercase tracking-[0.25em] text-amber-300">Hansani</div>
+            </div>
+            <h3 className="font-display text-3xl md:text-4xl text-white mb-4 leading-tight">
+              The Human Builder
+            </h3>
+            <p className="text-white/70 leading-relaxed mb-6">
+              Founder of Kavi Automation. Builds the actual systems Kavi recommends. Hands-on automation
+              specialist who uses these systems in her own operations daily.
+            </p>
+            <ul className="space-y-2.5 text-sm text-white/60 mb-6">
+              <li className="flex items-start gap-2.5">
+                <span className="text-amber-300 mt-1 text-xs">→</span>
+                <span>15-minute free strategy call</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <span className="text-amber-300 mt-1 text-xs">→</span>
+                <span>Custom plan for your business</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <span className="text-amber-300 mt-1 text-xs">→</span>
+                <span>Hands-on builds with weekly progress</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <span className="text-amber-300 mt-1 text-xs">→</span>
+                <span>Real human accountability</span>
+              </li>
+            </ul>
+            <div className="pt-6 border-t border-white/10">
+              <button
+                onClick={openBookingModal}
+                className="text-amber-300 font-display text-xl hover:text-amber-200 transition-colors flex items-center gap-2"
+              >
+                Premium · Book a Strategy Call <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
@@ -741,69 +871,73 @@ const ServicesSection = () => (
   <section id="services" className="relative py-20 md:py-28 bg-gradient-to-b from-black to-zinc-950">
     <div className="max-w-7xl mx-auto px-6 lg:px-12">
       <div className="max-w-3xl mb-16">
-        <ChapterMark part="Pt. 03" title="What We Build" />
+        <ChapterMark part="Pt. 04" title="What We Build" />
         <h2 className="font-display text-4xl md:text-6xl leading-[1.05] text-white">
           From first hello to{' '}
-          <em className="italic text-emerald-400">final sale</em> — fully automated.
+          <em className="italic text-emerald-400">final sale</em> — automated, intelligently.
         </h2>
         <p className="mt-6 text-lg text-white/60 max-w-2xl">
-          Four layers that work together as one system. Not features. Foundations.
+          Four systems that work together. Not features. Foundations. Each with transparent starting prices.
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
         <ServiceCard
-          icon={MessageCircle}
-          label="01 — Conversational AI"
-          title="WhatsApp, Voice & Chat Agents"
-          body="Wherever your customers talk — WhatsApp, phone, Telegram, web chat — your AI answers. Smart, on-brand, always available. Voice agents handle calls in natural conversation. Multilingual support so every customer feels heard."
+          icon={Brain}
+          label="01 — AI Web Chatbot"
+          title="Your consultant on the website. 24/7."
+          body="Kavi-style AI chatbots embedded directly into your website. Answers visitor questions, recommends right solutions for their industry, pre-qualifies leads, and books discovery calls automatically. Like the one talking to you right now."
           features={[
-            'WhatsApp Business API + Voice AI agents',
-            'Natural multi-turn conversations with memory',
-            'Multilingual support across channels',
-            '24/7 availability with human escalation',
+            'Industry-aware text AI advisor',
+            'Lead pre-qualification + capture',
+            'Books discovery calls automatically',
+            'Multi-language support',
           ]}
+          priceRange="Starts from €500"
           featured
           delay={0}
         />
         <ServiceCard
-          icon={Target}
-          label="02 — Sales Pipelines"
-          title="B2B Outreach & Lead Automation"
-          body="From discovery to qualified prospects — the entire sales pipeline, automated. Lead enrichment, email verification, AI-personalized outreach, smart follow-ups. Built to make your team faster, not busier."
+          icon={MessageCircle}
+          label="02 — WhatsApp & Chat Automation"
+          title="AI handles 80% of customer messages."
+          body="Wherever your customers chat — WhatsApp Business, Telegram, web chat — your AI answers smart, on-brand, instantly. Multilingual support, FAQ handling, booking flows, and seamless human handoff for complex queries."
           features={[
-            'Lead discovery, enrichment & email verification',
-            'AI-drafted outreach with human approval',
-            'Multi-step follow-up sequences',
-            'Reply detection & CRM auto-sync',
+            'WhatsApp Business API integration',
+            'FAQ, booking, and support automation',
+            'Multilingual (5+ languages)',
+            'Human handoff for complex queries',
           ]}
+          priceRange="Starts from €800"
           featured
           delay={100}
         />
         <ServiceCard
-          icon={Workflow}
-          label="03 — Internal Operations"
-          title="Back-Office Workflow Automation"
-          body="The invisible engine. Document automation, calendar sync, report generation, cross-tool data flows. Connect Gmail, Google Workspace, Notion, Sheets, Airtable — everything talks to everything, automatically."
+          icon={Target}
+          label="03 — Sales Pipeline Automation"
+          title="Capture, score, and nurture leads on autopilot."
+          body="From discovery to qualified prospects — the entire sales pipeline, automated. Lead enrichment, AI-personalized outreach, smart follow-ups, and CRM sync. Built to make your team faster, not busier."
           features={[
-            'Email-to-document pipelines',
-            'Calendar & scheduling automation',
-            'Auto-generated reports & summaries',
-            'Cross-platform data synchronization',
+            'Lead capture across all channels',
+            'AI lead scoring & segmentation',
+            'Automated proposal generation',
+            'CRM integration & follow-ups',
           ]}
+          priceRange="Starts from €1,500"
           delay={200}
         />
         <ServiceCard
-          icon={Brain}
-          label="04 — AI Agents"
-          title="Custom AI Agents & Integrations"
-          body="Bespoke AI agents with tools, memory, and decision logic. Smart automation with the Human Approval System. AI drafts replies, scores leads, generates reports — you approve. Guardrails to reduce hallucinations and keep humans in control."
+          icon={Zap}
+          label="04 — Custom AI Workflows"
+          title="Bespoke systems for your operations."
+          body="Custom-built AI agents and integrations. Document automation, reports, multi-tool workflows, internal AI assistants. Connect everything you use — Gmail, Sheets, Airtable, Notion — into one intelligent system with human approval built in."
           features={[
             'Multi-tool AI agents (Sheets, Gmail, Calendar)',
             'Human-in-the-loop approval flows',
-            'Custom GPT & Gemini integrations',
-            'Conversational memory & context',
+            'Custom integrations & data pipelines',
+            'Internal AI assistants for your team',
           ]}
+          priceRange="Starts from €3,000"
           delay={300}
         />
       </div>
@@ -828,7 +962,7 @@ const MethodSection = () => {
 
       <div className="max-w-5xl mx-auto px-6 lg:px-12 text-center">
         <div className="flex justify-center">
-          <ChapterMark part="Pt. 04" title="The Method" />
+          <ChapterMark part="Pt. 05" title="The Method" />
         </div>
 
         <h2
@@ -1008,7 +1142,7 @@ const CaseStudiesSection = () => (
   <section id="work" className="relative py-20 md:py-28 bg-gradient-to-b from-zinc-950 via-black to-zinc-950">
     <div className="max-w-7xl mx-auto px-6 lg:px-12">
       <div className="max-w-3xl mb-16">
-        <ChapterMark part="Pt. 05" title="Example Work" color="amber" />
+        <ChapterMark part="Pt. 06" title="Example Work" color="amber" />
         <h2 className="font-display text-4xl md:text-6xl leading-[1.05] text-white">
           Real workflows.{' '}
           <em className="italic text-amber-300">Honest design.</em>
@@ -1033,33 +1167,53 @@ const CaseStudiesSection = () => (
 // =====================================================
 const industries = [
   {
-    name: 'E-commerce Shops',
-    body: 'Your store never closes. Your customer service shouldn\'t either. We build AI agents that handle WhatsApp inquiries, answer phone calls about orders, recover abandoned carts, and sync everything to Shopify automatically. 24/7.',
+    name: 'E-commerce Stores',
+    body: 'Your store never closes. Your customer service shouldn\'t either. AI handles WhatsApp inquiries, recovers abandoned carts, answers product questions, and syncs everything to Shopify automatically. 24/7.',
     tag: 'Shopify · WooCommerce',
   },
   {
+    name: 'Restaurants & Cafes',
+    body: 'Same questions all day — menu, hours, reservations, dietary options. AI handles 80% of them instantly via WhatsApp. Your staff focuses on service, not screens.',
+    tag: 'Restaurants · Cafes · Bistros',
+  },
+  {
+    name: 'Salons & Beauty',
+    body: 'Your phone shouldn\'t ring during appointments. AI handles WhatsApp bookings, sends reminders (reducing no-shows 40-60%), and fills cancellations automatically. You focus on your clients.',
+    tag: 'Salons · Spas · Beauty Clinics',
+  },
+  {
     name: 'Real Estate Agencies',
-    body: 'Inquiries don\'t wait for office hours. Neither should your responses. Our AI handles WhatsApp leads, answers property inquiry calls, qualifies buyers, and books viewings — directly into your calendar.',
+    body: 'Inquiries don\'t wait for office hours. Neither should your responses. AI handles WhatsApp leads, qualifies buyers, answers property questions, and books viewings — directly into your calendar.',
     tag: 'Agencies · Solo agents',
   },
   {
-    name: 'Salons & Clinics',
-    body: 'Your phone shouldn\'t ring during appointments. Our voice AI takes booking calls, our WhatsApp AI handles questions, our automation sends reminders and fills cancellations. You focus on your clients.',
-    tag: 'Beauty · Dental · Medical',
+    name: 'Hotels & Hospitality',
+    body: 'Multilingual booking inquiries arrive at all hours. AI handles guest questions in 5+ languages, manages pre-arrival info, handles concierge requests, and follows up post-stay for reviews.',
+    tag: 'Hotels · B&Bs · Lodges',
+  },
+  {
+    name: 'Fitness & Gyms',
+    body: 'Trial leads go cold in 7 days. AI nurtures prospects, handles class bookings, sends reminders, and re-engages dropouts. Conversion rates lift 25-40% with the right automation.',
+    tag: 'Gyms · Studios · Trainers',
+  },
+  {
+    name: 'Tour & Travel',
+    body: 'International leads expect instant replies. AI handles itinerary questions in multiple languages, qualifies travelers, captures booking inquiries, and pre-trip support — even while you sleep.',
+    tag: 'Tour Operators · Agencies',
+  },
+  {
+    name: 'Education & Courses',
+    body: 'Students inquire when teachers are teaching. AI advisor recommends right courses, handles enrollment questions, answers FAQs, and captures leads — converting inquiry-stage interest 24/7.',
+    tag: 'Schools · Tutors · Course Sellers',
   },
   {
     name: 'Coaches & Consultants',
     body: 'Your time is your product. We automate discovery, qualify fit, deliver content, and handle onboarding — so you only spend time with ready-to-buy clients.',
-    tag: 'Coaching · Consulting',
+    tag: 'Coaching · Consulting · Service Pros',
   },
   {
-    name: 'Hotels & Hospitality',
-    body: 'Booking inquiries arrive at all hours. Our voice AI takes reservation calls, WhatsApp AI handles guest questions, and automation manages check-in flows, room service requests, and post-stay follow-ups.',
-    tag: 'Hotels · Restaurants · Delivery',
-  },
-  {
-    name: 'B2B Sales Teams',
-    body: 'Your sales pipeline shouldn\'t depend on manual research. We build complete outreach engines — lead discovery, enrichment, AI-personalized emails, follow-up sequences, reply handling. Your reps close, AI does the rest.',
+    name: 'B2B Sales & SaaS',
+    body: 'Your pipeline shouldn\'t depend on manual research. We build complete outreach engines — lead enrichment, AI-personalized emails, follow-up sequences, reply handling. Your reps close, AI does the rest.',
     tag: 'Agencies · SaaS · Services',
   },
 ];
@@ -1071,7 +1225,7 @@ const IndustriesSection = () => {
     <section id="industries" className="relative py-20 md:py-28 bg-gradient-to-b from-zinc-950 to-black">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="max-w-3xl mb-16">
-          <ChapterMark part="Pt. 06" title="Who We Serve" />
+          <ChapterMark part="Pt. 07" title="Who We Serve" />
           <h2 className="font-display text-4xl md:text-6xl leading-[1.05] text-white">
             Every industry has its own{' '}
             <em className="italic text-white/50">chaos.</em> We tame it.
@@ -1138,7 +1292,7 @@ const processSteps = [
   {
     phase: 'Phase 03',
     title: 'We build.',
-    body: 'WhatsApp API, voice agents, AI models, your CRM — all connected, all tested. You see progress every step.',
+    body: 'WhatsApp API, AI models, your CRM — all connected, all tested. You see progress every step.',
   },
   {
     phase: 'Phase 04',
@@ -1176,7 +1330,7 @@ const ProcessSection = () => (
   <section className="relative py-20 md:py-28">
     <div className="max-w-7xl mx-auto px-6 lg:px-12">
       <div className="max-w-3xl mb-14">
-        <ChapterMark part="Pt. 07" title="The Journey" />
+        <ChapterMark part="Pt. 08" title="The Journey" />
         <h2 className="font-display text-4xl md:text-6xl leading-[1.05] text-white">
           From <em className="italic text-emerald-400">"hello"</em> to launch —
           <br />five deliberate phases.
@@ -1235,33 +1389,39 @@ const FounderSection = () => {
 
           {/* Story */}
           <div className={`lg:col-span-7 transition-all duration-1000 delay-200 ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
-            <ChapterMark part="Pt. 08" title="The Founder" color="amber" />
+            <ChapterMark part="Pt. 09" title="The Founder" color="amber" />
 
             <h2 className="font-display text-4xl md:text-6xl leading-[1.05] text-white mb-8">
               Built by an{' '}
-              <em className="italic text-amber-300">automation</em>
+              <em className="italic text-amber-300">operator,</em>
               <br />
-              specialist.
+              not a salesperson.
             </h2>
 
             <div className="space-y-5 text-lg text-white/70 leading-relaxed mb-10 pb-10 border-b border-white/10">
               <p>
-                Built by <span className="text-white font-medium">Hansani Kavindi</span> — founder of Kavi Automation.
+                <span className="text-white font-medium">Kavi Automation</span> isn't run by a marketing agency.
+                It's run by a workflow builder who designs, builds, and tests the systems herself —
+                and uses them in her own operations daily.
               </p>
               <p>
-                I build AI automation systems for small businesses that want{' '}
-                <em className="italic text-emerald-400">faster replies, cleaner workflows, and less manual work.</em>
+                I saw the same pattern in dozens of businesses: owners drowning in repetitive work,
+                paralyzed by AI overwhelm, burned by consultants who promised miracles and delivered chaos.
               </p>
               <p className="text-white/90">
-                My approach is simple: AI handles repetitive tasks, humans stay in control,
-                and every workflow is designed with approval, safety, and brand consistency in mind.
+                My approach: give business owners free clarity through an AI advisor (Kavi),
+                then build what actually moves the needle for those who hire us.{' '}
+                <em className="italic text-emerald-400">No upsells. No fluff. No "it depends."</em>
+              </p>
+              <p className="text-emerald-400 italic font-display text-xl pt-2">
+                "If I don't see a realistic 90-day payback path, I'll tell you not to buy it."
               </p>
             </div>
 
             <div className="flex flex-wrap items-center gap-6 text-sm text-white/50">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
-                <span>From Romania. Reaching the world.</span>
+                <span>AI Systems Studio. Serving globally.</span>
               </div>
               <a href="#" className="flex items-center gap-2 hover:text-white transition-colors">
                 <Linkedin className="w-4 h-4" />
@@ -1297,7 +1457,7 @@ const whyUs = [
   {
     icon: Network,
     title: 'We see the whole picture.',
-    body: 'Most experts build one piece. We connect every piece. WhatsApp, voice, CRM, calendar, reports — one unified system. Your entire business, running itself.',
+    body: 'Most experts build one piece. We connect every piece. WhatsApp, chat, CRM, calendar, reports — one unified system. Your entire business, running itself.',
   },
 ];
 
@@ -1327,7 +1487,7 @@ const WhyUsSection = () => (
   <section className="relative py-20 md:py-28 bg-gradient-to-b from-black via-zinc-950 to-black">
     <div className="max-w-7xl mx-auto px-6 lg:px-12">
       <div className="max-w-3xl mb-14">
-        <ChapterMark part="Pt. 09" title="Why Us" />
+        <ChapterMark part="Pt. 10" title="Why Us" />
         <h2 className="font-display text-4xl md:text-6xl leading-[1.05] text-white">
           Automation should make you{' '}
           <em className="italic text-emerald-400">more human</em>, not less.
@@ -1351,8 +1511,9 @@ const packages = [
     icon: '🌱',
     name: 'Starter',
     tagline: 'Test the waters',
-    body: 'Curious about AI automation? Start here with a focused WhatsApp AI bot that handles your most common customer questions.',
-    features: ['Basic WhatsApp FAQ Bot', 'OpenAI/Gemini integration', '7–10 day delivery', 'Unlimited revisions'],
+    priceRange: 'From €500 – €1,500',
+    body: 'Curious about AI automation? Start here with a focused AI Web Chatbot or WhatsApp FAQ bot that handles your most common customer questions.',
+    features: ['AI Web Chatbot or WhatsApp FAQ Bot', 'Industry-aware advisor logic', '7–10 day delivery', 'Unlimited revisions'],
     cta: 'Book a Call to Learn More',
     featured: false,
   },
@@ -1360,11 +1521,12 @@ const packages = [
     icon: '🚀',
     name: 'Business',
     tagline: 'Scale with confidence',
-    body: 'Ready to grow? Get advanced AI support, CRM integration, and human approval flows that scale with your business.',
+    priceRange: 'From €1,500 – €4,000',
+    body: 'Ready to grow? Get full WhatsApp + Chat Automation, sales pipeline integration, and human approval flows that scale with your business.',
     features: [
-      'Advanced AI Support Agent',
-      'CRM integration (Airtable / Sheets)',
-      'Conditional logic & data syncing',
+      'WhatsApp + Chat Automation (full)',
+      'Sales Pipeline + CRM integration',
+      'Lead scoring & multilingual support',
       '2–3 week delivery + ongoing support',
     ],
     cta: 'Book a Call to Learn More',
@@ -1375,11 +1537,12 @@ const packages = [
     icon: '💎',
     name: 'Enterprise',
     tagline: 'Complete transformation',
-    body: 'Going all-in? Full enterprise automation with our signature Human Approval System, multi-platform integration, and ongoing partnership.',
+    priceRange: 'From €3,000+',
+    body: 'Going all-in? Custom AI Workflows with our signature Human Approval System, multi-platform integration, and bespoke AI agents tailored to your operations.',
     features: [
-      'Complete Business AI Transformation',
-      'Voice + WhatsApp + Telegram unified',
-      'Sales pipeline automation included',
+      'Custom AI Workflows & agents',
+      'WhatsApp + Telegram + Web Chat unified',
+      'Multi-tool integrations (Sheets, Gmail, Notion)',
       '4–6 week delivery + long-term partnership',
     ],
     cta: 'Book a Strategy Call',
@@ -1407,7 +1570,13 @@ const PackageCard = ({ pkg, i }) => {
 
       <div className="text-4xl mb-4">{pkg.icon}</div>
       <h3 className="font-display text-3xl text-white mb-1">{pkg.name}</h3>
-      <p className="text-emerald-400 text-sm uppercase tracking-[0.25em] mb-6">{pkg.tagline}</p>
+      <p className="text-emerald-400 text-sm uppercase tracking-[0.25em] mb-4">{pkg.tagline}</p>
+
+      {pkg.priceRange && (
+        <div className={`font-display text-2xl mb-6 ${pkg.featured ? 'text-emerald-400' : 'text-white'}`}>
+          {pkg.priceRange}
+        </div>
+      )}
 
       <p className="text-white/60 leading-relaxed mb-8">{pkg.body}</p>
 
@@ -1439,7 +1608,7 @@ const PackagesSection = () => (
     <div className="max-w-7xl mx-auto px-6 lg:px-12">
       <div className="max-w-3xl mb-16 text-center mx-auto">
         <div className="flex justify-center">
-          <ChapterMark part="Pt. 10" title="Investment" />
+          <ChapterMark part="Pt. 11" title="Investment" />
         </div>
         <h2 className="font-display text-4xl md:text-6xl leading-[1.05] text-white">
           Choose your{' '}
@@ -1480,8 +1649,8 @@ const faqs = [
     a: 'Almost certainly yes. We work with Airtable, Google Workspace, Notion, Telegram, WhatsApp Business API, and 400+ other tools through n8n. If your tool has an API, we can connect to it.',
   },
   {
-    q: 'What\'s the difference between WhatsApp AI and Voice AI?',
-    a: 'WhatsApp AI handles text-based conversations — questions, lead capture, bookings via chat. Voice AI handles actual phone calls — your business answers calls 24/7 in natural conversation. Many clients use both for full coverage.',
+    q: 'How do I know which automation is right for my business?',
+    a: 'Talk to Kavi AI on this site — it\'s free, no email needed. Tell it about your business and it gives you a personalized roadmap in 5 minutes: what to automate first, what to skip, and rough pricing. Then you decide.',
   },
   {
     q: 'Do you offer ongoing support after launch?',
@@ -1500,7 +1669,7 @@ const FAQSection = () => {
     <section className="relative py-20 md:py-28 bg-gradient-to-b from-black to-zinc-950">
       <div className="max-w-4xl mx-auto px-6 lg:px-12">
         <div className="mb-16">
-          <ChapterMark part="Pt. 11" title="Questions" />
+          <ChapterMark part="Pt. 12" title="Questions" />
           <h2 className="font-display text-4xl md:text-6xl leading-[1.05] text-white">
             Questions, <em className="italic text-emerald-400">answered.</em>
           </h2>
@@ -1563,20 +1732,30 @@ const FinalCTA = () => (
       </h2>
 
       <p className="text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl mx-auto mb-12">
-        Book a free 30-minute automation audit. We'll show you exactly where your business is
-        leaking time and money — and how to fix it. No pressure. No pitch. Just clarity.
+        Two ways to start. Both free. Talk to Kavi AI for instant clarity, or book Hansani for a 15-minute strategy call.
+        No pressure. No pitch. Just answers.
       </p>
 
-      <button
-        onClick={openBookingModal}
-        className="group inline-flex items-center gap-3 px-8 py-5 bg-emerald-400 hover:bg-emerald-300 text-black font-medium rounded-full transition-all hover:scale-105 text-lg"
-      >
-        Book Your Free Automation Audit
-        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-      </button>
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button
+          onClick={openChatWidget}
+          className="group inline-flex items-center gap-3 px-8 py-5 bg-emerald-400 hover:bg-emerald-300 text-black font-medium rounded-full transition-all hover:scale-105 text-lg"
+        >
+          <MessageCircle className="w-5 h-5" />
+          Talk to Kavi AI
+          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+        </button>
+        <button
+          onClick={openBookingModal}
+          className="group inline-flex items-center gap-3 px-8 py-5 border border-white/20 hover:border-amber-300 text-white/80 hover:text-amber-300 rounded-full transition-all text-lg"
+        >
+          <Sparkles className="w-5 h-5" />
+          Book Strategy Call
+        </button>
+      </div>
 
       <p className="mt-8 text-sm text-white/40">
-        30 minutes · Free · No commitment · Available Mon–Fri
+        Kavi AI: Free · Instant · No email needed · Strategy Call: 15 min · Free · With Hansani
       </p>
     </div>
   </section>
@@ -1603,7 +1782,7 @@ const Footer = () => (
             AI agents and automation systems that turn conversations into revenue — while you sleep.
           </p>
           <p className="text-xs text-white/30 italic font-display">
-            From Romania. Reaching the world.
+            AI Systems Studio. Serving globally.
           </p>
         </div>
 
@@ -1611,7 +1790,7 @@ const Footer = () => (
           <h4 className="text-xs uppercase tracking-[0.25em] text-white/40 mb-4">Services</h4>
           <ul className="space-y-2 text-white/70 text-sm">
             <li><a href="#services" className="hover:text-emerald-400 transition-colors">Conversational AI</a></li>
-            <li><a href="#services" className="hover:text-emerald-400 transition-colors">Voice AI Agents</a></li>
+            <li><a href="#services" className="hover:text-emerald-400 transition-colors">Custom AI Workflows</a></li>
             <li><a href="#services" className="hover:text-emerald-400 transition-colors">Sales Pipelines</a></li>
             <li><a href="#services" className="hover:text-emerald-400 transition-colors">Internal Operations</a></li>
             <li><a href="#services" className="hover:text-emerald-400 transition-colors">Custom AI Agents</a></li>
@@ -1644,9 +1823,15 @@ const ChatbotWidget = () => {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(0);
   const [messages, setMessages] = useState([
-    { from: 'bot', text: "Hi! I'm Kavi 👋 — Hansani's AI assistant. How can I help you today?" },
+    { from: 'bot', text: "Hi! I'm Kavi 👋 — your AI automation advisor. Tell me about your business, and I'll show you what AI can do for it. No email needed." },
   ]);
   const [input, setInput] = useState('');
+
+  useEffect(() => {
+    const handleOpen = () => setOpen(true);
+    window.addEventListener('kavi:openChat', handleOpen);
+    return () => window.removeEventListener('kavi:openChat', handleOpen);
+  }, []);
 
   const quickReplies = [
     "I'm exploring AI for my business",
@@ -1667,7 +1852,7 @@ const ChatbotWidget = () => {
       botResponse = "Opening the booking form for you now... ✨";
       setTimeout(() => openBookingModal(), 600);
     } else {
-      botResponse = "We automate WhatsApp/Voice conversations, sales pipelines, internal ops, and custom AI agents. What's the most repetitive task in your business right now?";
+      botResponse = "We build AI for your website, WhatsApp, sales pipeline, and internal workflows. What's the most repetitive task in your business right now?";
     }
 
     setMessages([...messages, userMsg, { from: 'bot', text: botResponse }]);
@@ -1682,7 +1867,7 @@ const ChatbotWidget = () => {
       userMsg,
       {
         from: 'bot',
-        text: "Thanks for the message! Hansani will personally respond within 24 hours. For faster booking, click 'Book Free Audit' above 👆",
+        text: "Thanks for the message! Hansani will personally respond within 24 hours. For faster booking, click 'Free Audit' above 👆",
       },
     ]);
     setInput('');
@@ -1798,356 +1983,5 @@ const ChatbotWidget = () => {
 // BOOKING MODAL (Smart Inquiry Form)
 // =====================================================
 const BookingModal = () => {
-  const [open, setOpen] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    whatsapp: '',
-    businessType: '',
-    challenge: '',
-    contactPreference: 'whatsapp',
-  });
-
-  // Listen for global open events
-  useEffect(() => {
-    const handler = () => {
-      setOpen(true);
-      setSubmitted(false);
-    };
-    window.addEventListener('kavi:openBooking', handler);
-    return () => window.removeEventListener('kavi:openBooking', handler);
-  }, []);
-
-  // Lock body scroll when modal open
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => { document.body.style.overflow = ''; };
-  }, [open]);
-
-  // Close on Escape
-  useEffect(() => {
-    const handler = (e) => { if (e.key === 'Escape') setOpen(false); };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
-  }, []);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
-
-    // ====================================================
-    // TO CONNECT TO YOUR n8n WEBHOOK:
-    // 1. Create a webhook trigger in n8n
-    // 2. Replace the URL below with your webhook URL
-    // 3. Uncomment the fetch block
-    // ====================================================
-    const webhookUrl = 'YOUR_N8N_WEBHOOK_URL_HERE';
-
-    try {
-      // Uncomment when webhook is ready:
-      /*
-      await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...form,
-          timestamp: new Date().toISOString(),
-          source: 'kaviautomation.com',
-        }),
-      });
-      */
-
-      // Simulate network delay for now
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      setSubmitted(true);
-    } catch (err) {
-      alert('Something went wrong. Please email hello@kaviautomation.com');
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  if (!open) return null;
-
-  const responseTime =
-    form.contactPreference === 'email'
-      ? '24 hours via email'
-      : form.contactPreference === 'whatsapp'
-      ? '12 hours on WhatsApp'
-      : '24 hours with a Calendly link';
-
-  return (
-    <div
-      className="fixed inset-0 z-[100] flex items-start justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto"
-      onClick={() => setOpen(false)}
-    >
-      <div
-        className="relative w-full max-w-lg bg-zinc-950 border border-white/10 rounded-3xl my-8 shadow-2xl"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          onClick={() => setOpen(false)}
-          className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors z-10"
-          aria-label="Close"
-        >
-          <X className="w-4 h-4 text-white/60" />
-        </button>
-
-        {!submitted ? (
-          <div className="p-8 md:p-10">
-            <div className="mb-8">
-              <div className="text-xs uppercase tracking-[0.3em] text-emerald-400 mb-3">
-                Free Automation Audit
-              </div>
-              <h3 className="font-display text-3xl md:text-4xl text-white leading-tight mb-3">
-                Tell us about your{' '}
-                <em className="italic text-emerald-400">business.</em>
-              </h3>
-              <p className="text-white/60 text-sm">
-                Fill this in 60 seconds. We respond on your terms — within 12 hours.
-              </p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-emerald-400/50 transition-colors text-sm"
-                    placeholder="Your name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-emerald-400/50 transition-colors text-sm"
-                    placeholder="you@business.com"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">
-                  WhatsApp Number
-                </label>
-                <input
-                  type="tel"
-                  required
-                  value={form.whatsapp}
-                  onChange={(e) => setForm({ ...form, whatsapp: e.target.value })}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-emerald-400/50 transition-colors text-sm"
-                  placeholder="+40 7XX XXX XXX (with country code)"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">
-                  Business Type
-                </label>
-                <select
-                  required
-                  value={form.businessType}
-                  onChange={(e) => setForm({ ...form, businessType: e.target.value })}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400/50 transition-colors text-sm appearance-none"
-                  style={{
-                    backgroundImage:
-                      "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")",
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'right 1rem center',
-                    paddingRight: '2.5rem',
-                  }}
-                >
-                  <option value="" className="bg-zinc-900">Select your industry</option>
-                  <option value="ecommerce" className="bg-zinc-900">E-commerce / Online Store</option>
-                  <option value="real-estate" className="bg-zinc-900">Real Estate</option>
-                  <option value="hospitality" className="bg-zinc-900">Hotels / Restaurants</option>
-                  <option value="salon-clinic" className="bg-zinc-900">Salon / Clinic</option>
-                  <option value="b2b-sales" className="bg-zinc-900">B2B Sales / Agency</option>
-                  <option value="coaching" className="bg-zinc-900">Coaching / Consulting</option>
-                  <option value="other" className="bg-zinc-900">Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">
-                  What's your biggest automation challenge?
-                </label>
-                <textarea
-                  required
-                  rows={3}
-                  value={form.challenge}
-                  onChange={(e) => setForm({ ...form, challenge: e.target.value })}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-emerald-400/50 transition-colors text-sm resize-none"
-                  placeholder="e.g., Missing customer messages after hours, manual data entry, repetitive WhatsApp inquiries..."
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-3">
-                  How would you like to chat?
-                </label>
-                <div className="space-y-2">
-                  {[
-                    {
-                      value: 'whatsapp',
-                      label: 'WhatsApp message',
-                      sub: 'Recommended — async & detailed',
-                      icon: MessageCircle,
-                    },
-                    {
-                      value: 'email',
-                      label: 'Email',
-                      sub: 'We respond within 24 hours',
-                      icon: Mail,
-                    },
-                    {
-                      value: 'call',
-                      label: 'Voice call',
-                      sub: "We'll send you a Calendly link",
-                      icon: Phone,
-                    },
-                  ].map((opt) => {
-                    const Icon = opt.icon;
-                    const selected = form.contactPreference === opt.value;
-                    return (
-                      <label
-                        key={opt.value}
-                        className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
-                          selected
-                            ? 'bg-emerald-400/10 border-emerald-400/40'
-                            : 'bg-white/5 border-white/10 hover:border-white/20'
-                        }`}
-                      >
-                        <input
-                          type="radio"
-                          name="contactPreference"
-                          value={opt.value}
-                          checked={selected}
-                          onChange={(e) => setForm({ ...form, contactPreference: e.target.value })}
-                          className="sr-only"
-                        />
-                        <div
-                          className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                            selected ? 'bg-emerald-400 text-black' : 'bg-white/5 text-white/60'
-                          }`}
-                        >
-                          <Icon className="w-4 h-4" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="text-white text-sm font-medium">{opt.label}</div>
-                          <div className="text-white/50 text-xs mt-0.5">{opt.sub}</div>
-                        </div>
-                        <div
-                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                            selected ? 'border-emerald-400 bg-emerald-400' : 'border-white/20'
-                          }`}
-                        >
-                          {selected && <div className="w-2 h-2 rounded-full bg-black" />}
-                        </div>
-                      </label>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                disabled={submitting}
-                className="w-full py-4 bg-emerald-400 hover:bg-emerald-300 text-black font-medium rounded-full transition-all hover:scale-[1.02] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {submitting ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    Send My Inquiry
-                    <ArrowRight className="w-4 h-4" />
-                  </>
-                )}
-              </button>
-
-              <p className="text-xs text-white/40 text-center">
-                By submitting, you agree to receive a response from Kavi Automation. We never share your info.
-              </p>
-            </form>
-          </div>
-        ) : (
-          <div className="p-10 text-center">
-            <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-emerald-400 flex items-center justify-center">
-              <CheckCircle2 className="w-8 h-8 text-black" />
-            </div>
-            <h3 className="font-display text-3xl text-white mb-3">
-              Thank you,{' '}
-              <em className="italic text-emerald-400">
-                {form.name.split(' ')[0] || 'friend'}!
-              </em>
-            </h3>
-            <p className="text-white/70 leading-relaxed max-w-sm mx-auto mb-6">
-              Your inquiry has been received. Hansani will personally respond within{' '}
-              <span className="text-white">{responseTime}</span>.
-            </p>
-            <p className="text-white/40 text-sm mb-8">
-              You'll receive a confirmation shortly. Check your spam folder just in case.
-            </p>
-            <button
-              onClick={() => setOpen(false)}
-              className="px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-full transition-colors text-sm border border-white/10"
-            >
-              Close
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
-// =====================================================
-// MAIN PAGE
-// =====================================================
-export default function KaviAutomationLanding() {
-  return (
-    <div className="min-h-screen bg-black text-white font-body antialiased relative overflow-x-hidden">
-      <FontLoader />
-      <Nav />
-      <main>
-        <Hero />
-        <PainSection />
-        <TransformSection />
-        <ServicesSection />
-        <MethodSection />
-        <CaseStudiesSection />
-        <IndustriesSection />
-        <ProcessSection />
-        <FounderSection />
-        <WhyUsSection />
-        <PackagesSection />
-        <FAQSection />
-        <FinalCTA />
-      </main>
-      <Footer />
-      <ChatbotWidget />
-      <BookingModal />
-    </div>
-  );
-}
+  const [open, setOpen] = useState(f
+...
