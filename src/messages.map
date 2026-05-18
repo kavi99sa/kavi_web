@@ -1868,6 +1868,12 @@ const ChatbotWidget = () => {
     { from: 'bot', text: "Hi! I'm Kavi 👋 — your AI automation advisor. I help businesses figure out what to automate (and what NOT to). Tell me about your business and I'll show you what's possible — including the sensory marketing tricks billion-dollar brands use. No email needed to start." },
   ]);
   const [input, setInput] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   useEffect(() => {
     const handleOpen = () => setOpen(true);
@@ -1909,6 +1915,7 @@ const ChatbotWidget = () => {
     setMessages(prev => [...prev, userMsg]);
     const currentInput = input;
     setInput('');
+    setIsTyping(true);
 
     try {
         // 2. n8n ලයිව් Production Webhook එකට සැබෑ මැසේජ් එක යවනවා
@@ -1928,9 +1935,11 @@ const ChatbotWidget = () => {
 
         // 3. කවි AI ගේ නියම ලයිව් උත්තරය ස්ක්‍රීන් එක මත පෙන්වනවා
         setMessages(prev => [...prev, { from: 'bot', text: botText }]);
+      setIsTyping(false);
     } catch (err) {
         console.error("Chat Error:", err);
         setMessages(prev => [...prev, { from: 'bot', text: "I'm having a bit of trouble connecting to my brain right now. Please try again or email hello@kaviautomation.com" }]);
+      setIsTyping(false);
     }
     
     setStep(prev => prev + 1);
