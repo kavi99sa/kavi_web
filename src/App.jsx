@@ -498,12 +498,12 @@ const Hero = () => (
           </h1>
 
           <p className="reveal reveal-d2 mt-8 text-lg md:text-xl text-white/70 max-w-xl leading-relaxed">
-            Confused about where to start with AI automation? Talk to Kavi AI and get a personalized
+            Confused about where to start with AI automation? Chat with Kavi AI and get a personalized
             roadmap for your business — WhatsApp, chat, CRM, bookings, and follow-ups. In 5 minutes. Free.
           </p>
           <p className="reveal reveal-d2 mt-3 text-sm text-emerald-400/80 flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4" />
-            No email required. No credit card. Just talk.
+            No email required. No credit card. Chat now.
           </p>
 
           <div className="reveal reveal-d3 mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -512,7 +512,7 @@ const Hero = () => (
               className="group inline-flex items-center gap-3 px-7 py-4 bg-emerald-400 hover:bg-emerald-300 text-black font-medium rounded-full transition-all hover:scale-105"
             >
               <MessageCircle className="w-5 h-5" />
-              Talk to Kavi AI
+              Chat with Kavi AI
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
             <button
@@ -669,7 +669,7 @@ const TransformSection = () => (
           <em className="italic text-white/60">sales call.</em>
         </h2>
         <p className="mt-6 text-lg text-white/50 max-w-xl leading-relaxed">
-          Two ways to start. Both free. Talk to Kavi AI for instant clarity, or book Hansani for hands-on planning.
+          Two ways to start. Both free. Chat with Kavi AI for instant clarity, or book Hansani for hands-on planning.
         </p>
       </div>
 
@@ -814,7 +814,7 @@ const KaviHansaniSection = () => {
                 onClick={openChatWidget}
                 className="text-emerald-400 font-display text-xl hover:text-emerald-300 transition-colors flex items-center gap-2"
               >
-                Free · Talk to Kavi Now <ArrowRight className="w-4 h-4" />
+                Free · Chat with Kavi Now <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -1624,6 +1624,48 @@ const PackagesSection = () => (
           <PackageCard key={i} pkg={pkg} i={i} />
         ))}
       </div>
+
+      {/* 90-Day ROI Guarantee — Public Pledge */}
+      <div className="mt-12 max-w-4xl mx-auto">
+        <div className="relative bg-gradient-to-br from-emerald-950/40 via-zinc-900/60 to-amber-950/20 border border-emerald-400/30 rounded-3xl p-8 md:p-12 overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-400/5 rounded-full blur-3xl"></div>
+          <div className="relative">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-400 text-black flex items-center justify-center">
+                <Shield className="w-6 h-6" strokeWidth={2} />
+              </div>
+              <div>
+                <div className="text-xs uppercase tracking-[0.25em] text-emerald-400 mb-1">Risk Reversal</div>
+                <div className="font-display text-2xl text-white">The 90-Day Payback Pledge</div>
+              </div>
+            </div>
+
+            <blockquote className="font-display text-2xl md:text-3xl text-white/95 leading-snug italic mb-6">
+              "If we don't see a realistic 90-day payback path for your investment,
+              <span className="text-emerald-400"> Hansani will tell you not to buy it.</span>"
+            </blockquote>
+
+            <div className="grid md:grid-cols-3 gap-6 pt-6 border-t border-white/10">
+              <div>
+                <div className="text-emerald-400 text-2xl font-display mb-1">No</div>
+                <div className="text-sm text-white/60">Hidden fees or surprise costs</div>
+              </div>
+              <div>
+                <div className="text-emerald-400 text-2xl font-display mb-1">No</div>
+                <div className="text-sm text-white/60">Generic templates or recycled solutions</div>
+              </div>
+              <div>
+                <div className="text-emerald-400 text-2xl font-display mb-1">No</div>
+                <div className="text-sm text-white/60">Sales pressure or fake urgency</div>
+              </div>
+            </div>
+
+            <div className="mt-6 text-sm text-white/50 italic">
+              We build systems that move the financial needle, or we don't build them at all.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 );
@@ -1650,7 +1692,7 @@ const faqs = [
   },
   {
     q: 'How do I know which automation is right for my business?',
-    a: 'Talk to Kavi AI on this site — it\'s free, no email needed. Tell it about your business and it gives you a personalized roadmap in 5 minutes: what to automate first, what to skip, and rough pricing. Then you decide.',
+    a: 'Chat with Kavi AI on this site — it\'s free, no email needed. Tell it about your business and it gives you a personalized roadmap in 5 minutes: what to automate first, what to skip, and rough pricing. Then you decide.',
   },
   {
     q: 'Do you offer ongoing support after launch?',
@@ -1732,7 +1774,7 @@ const FinalCTA = () => (
       </h2>
 
       <p className="text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl mx-auto mb-12">
-        Two ways to start. Both free. Talk to Kavi AI for instant clarity, or book Hansani for a 15-minute strategy call.
+        Two ways to start. Both free. Chat with Kavi AI for instant clarity, or book Hansani for a 15-minute strategy call.
         No pressure. No pitch. Just answers.
       </p>
 
@@ -1742,7 +1784,7 @@ const FinalCTA = () => (
           className="group inline-flex items-center gap-3 px-8 py-5 bg-emerald-400 hover:bg-emerald-300 text-black font-medium rounded-full transition-all hover:scale-105 text-lg"
         >
           <MessageCircle className="w-5 h-5" />
-          Talk to Kavi AI
+          Chat with Kavi AI
           <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
         </button>
         <button
@@ -1823,7 +1865,7 @@ const ChatbotWidget = () => {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(0);
   const [messages, setMessages] = useState([
-    { from: 'bot', text: "Hi! I'm Kavi 👋 — your AI automation advisor. Tell me about your business, and I'll show you what AI can do for it. No email needed." },
+    { from: 'bot', text: "Hi! I'm Kavi 👋 — your AI automation advisor. I help businesses figure out what to automate (and what NOT to). Tell me about your business and I'll show you what's possible — including the sensory marketing tricks billion-dollar brands use. No email needed to start." },
   ]);
   const [input, setInput] = useState('');
 
@@ -1845,14 +1887,14 @@ const ChatbotWidget = () => {
     let botResponse = '';
 
     if (reply.includes('exploring')) {
-      botResponse = "Great! What kind of business do you run? E-commerce, real estate, hospitality, or something else?";
+      botResponse = "Smart move. Before I give you advice, what's your business? Restaurant, salon, e-commerce, real estate, hotel — or something else? I have industry-specific playbooks (with sensory marketing tricks the big brands use) for each.";
     } else if (reply.includes('pricing')) {
-      botResponse = "We have 3 packages — Starter, Business, and Enterprise. Pricing depends on scope, best discussed on a free audit. Want me to open the inquiry form for you?";
+      botResponse = "Honest answer — pricing depends on volume and complexity. Three tiers:\n\n• Starter (€500–€1,500): If you're testing the waters\n• Business (€1,500–€4,000): For real growth — most clients land here\n• Enterprise (€3,000+): Full transformation\n\nBut here's Hansani's pledge: if we don't see a realistic 90-day payback path, we'll tell you not to buy. Want me to open the inquiry form so we can show you exact numbers for YOUR case?";
     } else if (reply.includes('Book')) {
-      botResponse = "Opening the booking form for you now... ✨";
-      setTimeout(() => openBookingModal(), 600);
+      botResponse = "Opening the booking form for you now... ✨ Just a heads-up: the 15-min call is Pure Listening — Hansani takes notes, then sends you a written AI Blueprint by next morning. Zero sales pressure.";
+      setTimeout(() => openBookingModal(), 800);
     } else {
-      botResponse = "We build AI for your website, WhatsApp, sales pipeline, and internal workflows. What's the most repetitive task in your business right now?";
+      botResponse = "Anything that's eating your time daily. Examples:\n\n• WhatsApp messages (the same 5 questions all day)\n• Booking & reminders (no-shows killing you?)\n• Cart recovery (e-commerce loses 15-25% to abandoned carts)\n• Lead follow-ups (cold leads = lost money)\n\nBut here's the thing — we don't automate just to automate. If your volume is under 20 orders/month, we'll tell you to wait. What's the most repetitive task in YOUR business right now?";
     }
 
     setMessages([...messages, userMsg, { from: 'bot', text: botResponse }]);
@@ -1862,13 +1904,25 @@ const ChatbotWidget = () => {
   const handleSend = () => {
     if (!input.trim()) return;
     const userMsg = { from: 'user', text: input };
+
+    // Value-First Email Capture trigger after 4+ messages
+    const messageCount = messages.filter(m => m.from === 'user').length;
+    let botText = "";
+
+    if (messageCount >= 3 && !messages.some(m => m.text && m.text.includes('Blueprint PDF'))) {
+      // After 4 user messages, offer the Blueprint PDF
+      botText = "I've got enough to build you a clear picture. Want me to send you a full Custom Automation Blueprint PDF? It includes:\n\n✓ Specific automations for your business\n✓ Sensory marketing tactics (Apple/Netflix/Starbucks level)\n✓ Exact pricing tiers\n✓ 90-day ROI projection\n\nJust drop your email and I'll have Hansani send it within 24 hours. Or click 'Free Audit' above to book a 15-min call.";
+    } else if (input.toLowerCase().includes('@') && input.includes('.')) {
+      // Detected email
+      botText = "Perfect! I've saved your email. Hansani will send your personalized AI Blueprint within 24 hours. Anything specific you want her to include? (e.g., focus on WhatsApp, or sales pipeline, or something else)";
+    } else {
+      botText = "Got it. Tell me more — what's the volume? How many customers/inquiries per week? The honest truth is automation only pays back if your volume justifies it.";
+    }
+
     setMessages([
       ...messages,
       userMsg,
-      {
-        from: 'bot',
-        text: "Thanks for the message! Hansani will personally respond within 24 hours. For faster booking, click 'Free Audit' above 👆",
-      },
+      { from: 'bot', text: botText },
     ]);
     setInput('');
     setStep(step + 1);
@@ -1983,5 +2037,397 @@ const ChatbotWidget = () => {
 // BOOKING MODAL (Smart Inquiry Form)
 // =====================================================
 const BookingModal = () => {
-  const [open, setOpen] = useState(f
-...
+  const [open, setOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    whatsapp: '',
+    businessType: '',
+    challenge: '',
+    contactPreference: 'whatsapp',
+  });
+
+  // Listen for global open events
+  useEffect(() => {
+    const handler = () => {
+      setOpen(true);
+      setSubmitted(false);
+    };
+    window.addEventListener('kavi:openBooking', handler);
+    return () => window.removeEventListener('kavi:openBooking', handler);
+  }, []);
+
+  // Lock body scroll when modal open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
+
+  // Close on Escape
+  useEffect(() => {
+    const handler = (e) => { if (e.key === 'Escape') setOpen(false); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+
+    // ====================================================
+    // TO CONNECT TO YOUR n8n WEBHOOK:
+    // 1. Create a webhook trigger in n8n
+    // 2. Replace the URL below with your webhook URL
+    // 3. Uncomment the fetch block
+    // ====================================================
+    const webhookUrl = 'YOUR_N8N_WEBHOOK_URL_HERE';
+
+    try {
+      // Uncomment when webhook is ready:
+      /*
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...form,
+          timestamp: new Date().toISOString(),
+          source: 'kaviautomation.com',
+        }),
+      });
+      */
+
+      // Simulate network delay for now
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      setSubmitted(true);
+    } catch (err) {
+      alert('Something went wrong. Please email hello@kaviautomation.com');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  if (!open) return null;
+
+  const responseTime =
+    form.contactPreference === 'email'
+      ? '24 hours via email'
+      : form.contactPreference === 'whatsapp'
+      ? '12 hours on WhatsApp'
+      : '24 hours with a Calendly link';
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-start justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto"
+      onClick={() => setOpen(false)}
+    >
+      <div
+        className="relative w-full max-w-lg bg-zinc-950 border border-white/10 rounded-3xl my-8 shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={() => setOpen(false)}
+          className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors z-10"
+          aria-label="Close"
+        >
+          <X className="w-4 h-4 text-white/60" />
+        </button>
+
+        {!submitted ? (
+          <div className="p-8 md:p-10">
+            <div className="mb-8">
+              <div className="text-xs uppercase tracking-[0.3em] text-emerald-400 mb-3">
+                Book Free Strategy Call
+              </div>
+              <h3 className="font-display text-3xl md:text-4xl text-white leading-tight mb-3">
+                Tell Hansani about your{' '}
+                <em className="italic text-emerald-400">business.</em>
+              </h3>
+              <p className="text-white/60 text-sm mb-6">
+                Fill this in 60 seconds. Hansani will send you a Calendly link within 12 hours.
+              </p>
+
+              {/* Micro-Steps Transparency Box */}
+              <div className="bg-emerald-950/30 border border-emerald-400/20 rounded-2xl p-5 mb-2">
+                <div className="text-xs uppercase tracking-[0.2em] text-emerald-400 mb-3 font-medium">
+                  What happens in 15 minutes
+                </div>
+                <ul className="space-y-2 text-sm text-white/70">
+                  <li className="flex items-start gap-3">
+                    <span className="text-emerald-400 font-mono text-xs mt-0.5">1–3</span>
+                    <span>Quick hello and alignment</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-emerald-400 font-mono text-xs mt-0.5">3–12</span>
+                    <span><strong className="text-white">Pure Listening.</strong> You tell us your business bottlenecks, we take detailed notes.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-emerald-400 font-mono text-xs mt-0.5">12–15</span>
+                    <span>Wrap up. We send your comprehensive written AI Blueprint to your email by next morning.</span>
+                  </li>
+                </ul>
+                <div className="mt-4 pt-4 border-t border-emerald-400/10 text-xs text-emerald-400/80 italic">
+                  🛡️ Zero sales pressure. You talk, we listen, AI delivers.
+                </div>
+              </div>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-emerald-400/50 transition-colors text-sm"
+                    placeholder="Your name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-emerald-400/50 transition-colors text-sm"
+                    placeholder="you@business.com"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">
+                  WhatsApp Number
+                </label>
+                <input
+                  type="tel"
+                  required
+                  value={form.whatsapp}
+                  onChange={(e) => setForm({ ...form, whatsapp: e.target.value })}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-emerald-400/50 transition-colors text-sm"
+                  placeholder="+40 7XX XXX XXX (with country code)"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">
+                  Business Type
+                </label>
+                <select
+                  required
+                  value={form.businessType}
+                  onChange={(e) => setForm({ ...form, businessType: e.target.value })}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400/50 transition-colors text-sm appearance-none"
+                  style={{
+                    backgroundImage:
+                      "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")",
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 1rem center',
+                    paddingRight: '2.5rem',
+                  }}
+                >
+                  <option value="" className="bg-zinc-900">Select your industry</option>
+                  <option value="ecommerce" className="bg-zinc-900">E-commerce Store</option>
+                  <option value="restaurant" className="bg-zinc-900">Restaurant / Cafe</option>
+                  <option value="salon_beauty" className="bg-zinc-900">Salon / Beauty</option>
+                  <option value="real_estate" className="bg-zinc-900">Real Estate</option>
+                  <option value="hotel_hospitality" className="bg-zinc-900">Hotel / Hospitality</option>
+                  <option value="fitness" className="bg-zinc-900">Fitness / Gym</option>
+                  <option value="tour_travel" className="bg-zinc-900">Tour / Travel</option>
+                  <option value="education" className="bg-zinc-900">Education / Courses</option>
+                  <option value="coach_consultant" className="bg-zinc-900">Coach / Consultant</option>
+                  <option value="b2b_sales" className="bg-zinc-900">B2B / SaaS / Agency</option>
+                  <option value="other" className="bg-zinc-900">Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-2">
+                  What's your biggest automation challenge?
+                </label>
+                <textarea
+                  required
+                  rows={3}
+                  value={form.challenge}
+                  onChange={(e) => setForm({ ...form, challenge: e.target.value })}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-emerald-400/50 transition-colors text-sm resize-none"
+                  placeholder="e.g., Missing customer messages after hours, manual data entry, repetitive WhatsApp inquiries..."
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase tracking-[0.2em] text-white/40 mb-3">
+                  How would you like to chat?
+                </label>
+                <div className="space-y-2">
+                  {[
+                    {
+                      value: 'whatsapp',
+                      label: 'WhatsApp message',
+                      sub: 'Recommended — async & detailed',
+                      icon: MessageCircle,
+                    },
+                    {
+                      value: 'email',
+                      label: 'Email',
+                      sub: 'We respond within 24 hours',
+                      icon: Mail,
+                    },
+                    {
+                      value: 'call',
+                      label: 'Strategy Call',
+                      sub: "We'll send you a Calendly link",
+                      icon: Phone,
+                    },
+                  ].map((opt) => {
+                    const Icon = opt.icon;
+                    const selected = form.contactPreference === opt.value;
+                    return (
+                      <label
+                        key={opt.value}
+                        className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
+                          selected
+                            ? 'bg-emerald-400/10 border-emerald-400/40'
+                            : 'bg-white/5 border-white/10 hover:border-white/20'
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="contactPreference"
+                          value={opt.value}
+                          checked={selected}
+                          onChange={(e) => setForm({ ...form, contactPreference: e.target.value })}
+                          className="sr-only"
+                        />
+                        <div
+                          className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                            selected ? 'bg-emerald-400 text-black' : 'bg-white/5 text-white/60'
+                          }`}
+                        >
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="text-white text-sm font-medium">{opt.label}</div>
+                          <div className="text-white/50 text-xs mt-0.5">{opt.sub}</div>
+                        </div>
+                        <div
+                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                            selected ? 'border-emerald-400 bg-emerald-400' : 'border-white/20'
+                          }`}
+                        >
+                          {selected && <div className="w-2 h-2 rounded-full bg-black" />}
+                        </div>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={submitting}
+                className="w-full py-4 bg-emerald-400 hover:bg-emerald-300 text-black font-medium rounded-full transition-all hover:scale-[1.02] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {submitting ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    Send My Inquiry
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
+              </button>
+
+              <p className="text-xs text-white/40 text-center">
+                By submitting, you agree to receive a response from Kavi Automation. We never share your info.
+              </p>
+            </form>
+          </div>
+        ) : (
+          <div className="p-10 text-center">
+            <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-emerald-400 flex items-center justify-center">
+              <CheckCircle2 className="w-8 h-8 text-black" />
+            </div>
+            <h3 className="font-display text-3xl text-white mb-3">
+              Thank you,{' '}
+              <em className="italic text-emerald-400">
+                {form.name.split(' ')[0] || 'friend'}!
+              </em>
+            </h3>
+            <p className="text-white/70 leading-relaxed max-w-sm mx-auto mb-6">
+              Your inquiry has been received. Hansani will personally respond within{' '}
+              <span className="text-white">{responseTime}</span>.
+            </p>
+            <p className="text-white/40 text-sm mb-8">
+              You'll receive a confirmation shortly. Check your spam folder just in case.
+            </p>
+            <div className="flex flex-col gap-3">
+              <a
+                href="https://calendly.com/kaviautomation/discovery-call"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 bg-emerald-400 hover:bg-emerald-300 text-black font-medium rounded-full transition-all hover:scale-[1.02] text-sm flex items-center justify-center gap-2"
+              >
+                <Calendar className="w-4 h-4" />
+                Book a 15-min Strategy Call Now
+                <ArrowRight className="w-4 h-4" />
+              </a>
+              <button
+                onClick={() => setOpen(false)}
+                className="px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-full transition-colors text-sm border border-white/10"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// =====================================================
+// MAIN PAGE
+// =====================================================
+export default function KaviAutomationLanding() {
+  return (
+    <div className="min-h-screen bg-black text-white font-body antialiased relative overflow-x-hidden">
+      <FontLoader />
+      <Nav />
+      <main>
+        <Hero />
+        <PainSection />
+        <TransformSection />
+        <KaviHansaniSection />
+        <ServicesSection />
+        <MethodSection />
+        <CaseStudiesSection />
+        <IndustriesSection />
+        <ProcessSection />
+        <FounderSection />
+        <WhyUsSection />
+        <PackagesSection />
+        <FAQSection />
+        <FinalCTA />
+      </main>
+      <Footer />
+      <ChatbotWidget />
+      <BookingModal />
+    </div>
+  );
+}
