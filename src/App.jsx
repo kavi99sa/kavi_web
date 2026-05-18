@@ -1912,7 +1912,7 @@ const ChatbotWidget = () => {
 
     try {
         // 2. n8n ලයිව් Production Webhook එකට සැබෑ මැසේජ් එක යවනවා
-        const response = await fetch('https://n8n.kaviautomation.com/webhook/kavi-chat', {
+        const response = await fetch('https://n8n.kaviautomation.com/webhook/kavi-chat-secure-9x724', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
