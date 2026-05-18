@@ -2086,11 +2086,11 @@ const BookingModal = () => {
     // 2. Replace the URL below with your webhook URL
     // 3. Uncomment the fetch block
     // ====================================================
-    const webhookUrl = 'YOUR_N8N_WEBHOOK_URL_HERE';
+    const webhookUrl = 'https://n8n.kaviautomation.com/webhook-test/kavi-chat';
 
     try {
       // Uncomment when webhook is ready:
-      /*
+      
       await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -2100,7 +2100,7 @@ const BookingModal = () => {
           source: 'kaviautomation.com',
         }),
       });
-      */
+      
 
       // Simulate network delay for now
       await new Promise((resolve) => setTimeout(resolve, 800));
