@@ -1888,26 +1888,46 @@ const ChatbotWidget = () => {
     "What can you automate?"
   ]);
 
-  const handleQuickReply = (reply) => {
+  const handleQuickReply = async (reply) => {
     const userMsg = { from: 'user', text: reply };
-    let botResponse = '';
+    setMessages(prev => [...prev, userMsg]);
+    setIsTyping(true);
+    setQuickReplies([]);
 
-    if (reply.includes('exploring')) {
-      botResponse = "Smart move. Before I give you advice, what's your business? Restaurant, salon, e-commerce, real estate, hotel — or something else? I have industry-specific playbooks (with sensory marketing tricks the big brands use) for each.";
-    } else if (reply.includes('pricing')) {
-      botResponse = "Honest answer — pricing depends on volume and complexity. Three tiers:\n\n• Starter (€500–€1,500): If you're testing the waters\n• Business (€1,500–€4,000): For real growth — most clients land here\n• Enterprise (€3,000+): Full transformation\n\nBut here's Hansani's pledge: if we don't see a realistic 90-day payback path, we'll tell you not to buy. Want me to open the inquiry form so we can show you exact numbers for YOUR case?";
-    } else if (reply.includes('Book')) {
-      botResponse = "Opening the booking form for you now... ✨ Just a heads-up: the 15-min call is Pure Listening — Hansani takes notes, then sends you a written AI Blueprint by next morning. Zero sales pressure.";
-      setTimeout(() => openBookingModal(), 800);
-    } else {
-      botResponse = "Anything that's eating your time daily. Examples:\n\n• WhatsApp messages (the same 5 questions all day)\n• Booking & reminders (no-shows killing you?)\n• Cart recovery (e-commerce loses 15-25% to abandoned carts)\n• Lead follow-ups (cold leads = lost money)\n\nBut here's the thing — we don't automate just to automate. If your volume is under 20 orders/month, we'll tell you to wait. What's the most repetitive task in YOUR business right now?";
+    try {
+      const response = await fetch('https://n8n.kaviautomation.com/webhook/kavi-chat-secure-9x724', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_message: reply,
+          session_id: 'kavi-web-live-chat-session'
+        })
+      });
+
+      const data = await response.json();
+      const botText = data.output || data.response || data.reply || data.text || (typeof data === 'string' ? data : "Got it! Let's continue.");
+      
+      let displayLines = botText;
+      if (botText.includes('[OPTIONS]:')) {
+        const parts = botText.split('[OPTIONS]:');
+        displayLines = parts[0].trim();
+        try {
+          const optionsArray = JSON.parse(parts[1].trim());
+          if (Array.isArray(optionsArray)) setQuickReplies(optionsArray);
+        } catch (e) {
+          const rawOpts = parts[1].replace(/[\[\]"']/g, '').split(',');
+          setQuickReplies(rawOpts.map(o => o.trim()).filter(Boolean));
+        }
+      }
+
+      setMessages(prev => [...prev, { from: 'bot', text: displayLines }]);
+    } catch (err) {
+      console.error("Chat Error:", err);
+      setMessages(prev => [...prev, { from: 'bot', text: "I'm having a bit of trouble connecting to my brain right now. Please try again." }]);
+    } finally {
+      setIsTyping(false);
     }
-
-    setMessages([...messages, userMsg, { from: 'bot', text: botResponse }]);
-    setStep(step + 1);
   };
-
-  const handleSend = async () => {
     if (!input.trim()) return;
     const userMsg = { from: 'user', text: input };
     
