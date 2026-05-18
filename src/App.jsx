@@ -1928,7 +1928,8 @@ const ChatbotWidget = () => {
       setIsTyping(false);
     }
   };
-    if (!input.trim()) return;
+   const handleSend = async () => { 
+  if (!input.trim()) return;
     const userMsg = { from: 'user', text: input };
     
     // 1. ඔයා ටයිප් කරන මැසේජ් එක ස්ක්‍රීන් එකට ක්ෂණිකව දානවා
