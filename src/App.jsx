@@ -1869,6 +1869,16 @@ const ChatbotWidget = () => {
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  // Unique session ID per browser (persists across page refreshes)
+  const [sessionId] = useState(() => {
+    if (typeof window === 'undefined') return 'sess_temp';
+    let stored = localStorage.getItem('kavi_session_id');
+    if (!stored) {
+      stored = 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
+      localStorage.setItem('kavi_session_id', stored);
+    }
+    return stored;
+  });
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -1900,7 +1910,7 @@ const ChatbotWidget = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           user_message: reply,
-          session_id: 'kavi-web-live-chat-session'
+          session_id: sessionId
         })
       });
 
@@ -1946,7 +1956,7 @@ const ChatbotWidget = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 user_message: currentInput,
-                session_id: 'kavi-web-live-chat-session'
+                session_id: sessionId
             })
         });
 
