@@ -2447,7 +2447,7 @@ const BookingModal = () => {
             </p>
             <div className="flex flex-col gap-3">
               <a
-                href="https://calendly.com/kaviautomation/discovery-call"
+                href="https://calendly.com/kavi-kaviautomation/discovery-call"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-3 bg-emerald-400 hover:bg-emerald-300 text-black font-medium rounded-full transition-all hover:scale-[1.02] text-sm flex items-center justify-center gap-2"
