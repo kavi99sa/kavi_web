@@ -2155,7 +2155,7 @@ const BookingModal = () => {
     // 2. Replace the URL below with your webhook URL
     // 3. Uncomment the fetch block
     // ====================================================
-    const webhookUrl = 'https://n8n.kaviautomation.com/webhook/kavi-chat';
+    const webhookUrl = 'https://n8n.kaviautomation.com/webhook/inquiry-form';
 
     try {
       // Uncomment when webhook is ready:
