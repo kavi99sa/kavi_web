@@ -1835,7 +1835,7 @@ const Footer = () => (
         <div>
           <h4 className="text-xs uppercase tracking-[0.25em] text-white/40 mb-4">Connect</h4>
           <ul className="space-y-2 text-white/70 text-sm">
-            <li><a href="https://www.linkedin.com/groups/13738928/" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">LinkedIn</a></li>
+            <li><a href="https://https://www.linkedin.com/in/hansani-kavindi/" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">LinkedIn</a></li>
             
             <li><a href="mailto:hello@kaviautomation.com" className="hover:text-emerald-400 transition-colors">hello@kaviautomation.com</a></li>
             <li><button onClick={openBookingModal} className="hover:text-emerald-400 transition-colors text-left">Book a Call</button></li>
