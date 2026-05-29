@@ -1416,7 +1416,7 @@ const FounderSection = () => {
                 <MapPin className="w-4 h-4" />
                 <span>AI Systems Studio. Serving globally.</span>
               </div>
-              <a href="#" className="flex items-center gap-2 hover:text-white transition-colors">
+              <a href="https://www.linkedin.com/in/hansani-kavindi/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-white transition-colors">
                 <Linkedin className="w-4 h-4" />
                 <span className="draw-underline">Connect on LinkedIn</span>
               </a>
