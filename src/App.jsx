@@ -1372,14 +1372,7 @@ const FounderSection = () => {
                   2. Replace the <div> below with:
                      <img src="/hansani.jpg" alt="Hansani Kavindi" className="w-full h-full object-cover" />
                 */}
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-emerald-400/20 to-amber-400/20 border border-white/10 flex items-center justify-center mb-6">
-                      <span className="font-display text-5xl text-white/80">H</span>
-                    </div>
-                    <div className="text-white/40 text-sm">[Add /hansani.jpg]</div>
-                  </div>
-                </div>
+                <img src="/hansani.png" alt="Hansani Kavindi" className="w-full h-full object-cover" />
               </div>
               <div className="absolute -bottom-4 -right-4 px-4 py-3 bg-emerald-400 text-black rounded-2xl font-display italic shadow-xl">
                 Hansani Kavindi
