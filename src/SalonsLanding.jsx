@@ -16,7 +16,7 @@ import {
   Zap,
 } from 'lucide-react';
 
-const salonHeroImage = '/salon-hero-premium.png';
+const salonHeroImage = '/images/salon-hero-premium.png';
 const languageStorageKey = 'kavi-salons-language';
 const auditCalendlyUrl = 'https://calendly.com/kavi-kaviautomation/audit-gratuit-pentru-salon-15-min';
 
@@ -124,37 +124,37 @@ const salonCopy = {
         {
           title: 'Calculator pierderi no-show',
           body: 'Vezi cât costă lunar programările la care clientele nu mai ajung.',
-          href: '/salons/no-show-calculator',
+          href: auditCalendlyUrl,
           icon: TrendingUp,
         },
         {
           title: 'Scor automatizare salon',
           body: 'Un scor rapid pentru mesaje, confirmări, recenzii și follow-up-ul salonului.',
-          href: '/salons/guides',
+          href: auditCalendlyUrl,
           icon: Target,
         },
         {
           title: 'Generator mesaje recenzii Google',
           body: 'Texte elegante pentru a cere recenzii fără să pară insistent sau rece.',
-          href: '/salons/guides',
+          href: auditCalendlyUrl,
           icon: Award,
         },
         {
           title: 'Generator răspunsuri cliente',
           body: 'Răspunsuri clare pentru prețuri, disponibilitate, anulări și întrebări repetitive.',
-          href: '/salons/guides',
+          href: auditCalendlyUrl,
           icon: MessageCircle,
         },
         {
           title: 'Generator calendar marketing salon',
           body: 'Idei de campanii, postări și oferte potrivite pentru ritmul unui salon.',
-          href: '/salons/guides',
+          href: auditCalendlyUrl,
           icon: Calendar,
         },
         {
           title: 'Generator hook-uri Reels',
           body: 'Hook-uri scurte pentru rezultate, transformări, educație și oferte sezoniere.',
-          href: '/salons/guides',
+          href: auditCalendlyUrl,
           icon: Zap,
         },
       ],
@@ -380,37 +380,37 @@ const salonCopy = {
         {
           title: 'No-show Loss Calculator',
           body: 'See how much missed appointments cost your salon each month.',
-          href: '/salons/no-show-calculator',
+          href: auditCalendlyUrl,
           icon: TrendingUp,
         },
         {
           title: 'Salon Automation Score',
           body: 'A quick score for your messages, confirmations, reviews, and follow-up.',
-          href: '/salons/guides',
+          href: auditCalendlyUrl,
           icon: Target,
         },
         {
           title: 'Google Review Message Generator',
           body: 'Elegant messages for asking for reviews without sounding pushy or cold.',
-          href: '/salons/guides',
+          href: auditCalendlyUrl,
           icon: Award,
         },
         {
           title: 'Client Reply Generator',
           body: 'Clear replies for prices, availability, cancellations, and repetitive questions.',
-          href: '/salons/guides',
+          href: auditCalendlyUrl,
           icon: MessageCircle,
         },
         {
           title: 'Salon Marketing Calendar Generator',
           body: 'Campaign, post, and offer ideas that fit the rhythm of a salon.',
-          href: '/salons/guides',
+          href: auditCalendlyUrl,
           icon: Calendar,
         },
         {
           title: 'Reel Hook Generator',
           body: 'Short hooks for results, transformations, education, and seasonal offers.',
-          href: '/salons/guides',
+          href: auditCalendlyUrl,
           icon: Zap,
         },
       ],
@@ -935,6 +935,8 @@ const ToolsSection = ({ t }) => (
             <Reveal key={tool.title} delay={index * 50}>
               <a
                 href={tool.href}
+                target={isExternalLink(tool.href) ? '_blank' : undefined}
+                rel={isExternalLink(tool.href) ? 'noreferrer' : undefined}
                 className="salon-card group flex h-full min-h-[210px] flex-col justify-between rounded-lg border border-[#fbf4e8]/10 bg-[linear-gradient(145deg,rgba(251,244,232,0.075),rgba(251,244,232,0.028))] p-6"
               >
                 <div>
@@ -990,7 +992,7 @@ const AskKaviSection = ({ t }) => (
             ))}
           </div>
           <div className="mt-7">
-            <CTAButton href="/salons/audit">{t.ask.cta}</CTAButton>
+            <CTAButton href={auditCalendlyUrl}>{t.ask.cta}</CTAButton>
           </div>
         </div>
       </Reveal>
