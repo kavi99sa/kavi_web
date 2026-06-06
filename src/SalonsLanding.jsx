@@ -19,6 +19,11 @@ import {
 const salonHeroImage = '/images/salon-hero-premium.png';
 const languageStorageKey = 'kavi-salons-language';
 const auditCalendlyUrl = 'https://calendly.com/kavi-kaviautomation/audit-gratuit-pentru-salon-15-min';
+const calculatorDefaults = {
+  averagePrice: 250,
+  appointmentsPerMonth: 120,
+  noShowsPerMonth: 8,
+};
 
 const isExternalLink = (href) => /^https?:\/\//.test(href);
 
@@ -536,6 +541,47 @@ const salonCopy = {
     },
   },
 };
+
+const noShowCalculatorCopy = {
+  ro: {
+    eyebrow: 'Calculator no-show',
+    title: 'No-show Loss Calculator',
+    body: 'Estimează rapid cât poate pierde salonul într-o lună din programări ratate. Introdu câteva valori simple și vezi impactul lunar și anual în RON.',
+    averagePrice: 'Preț mediu serviciu',
+    appointmentsPerMonth: 'Programări pe lună',
+    noShowsPerMonth: 'No-show-uri pe lună',
+    resultEyebrow: 'Pierdere estimată',
+    monthlyLoss: 'Pierdere lunară',
+    yearlyLoss: 'Pierdere anuală',
+    rate: 'Rata no-show estimată',
+    note: 'This is an estimate, not financial advice.',
+    back: 'Înapoi la pagina pentru saloane',
+    audit: 'Primește auditul gratuit',
+  },
+  en: {
+    eyebrow: 'No-show calculator',
+    title: 'No-show Loss Calculator',
+    body: 'Quickly estimate how much your salon may be losing each month from missed appointments. Add a few simple numbers and see the monthly and yearly impact in RON.',
+    averagePrice: 'Average service price',
+    appointmentsPerMonth: 'Number of appointments per month',
+    noShowsPerMonth: 'No-shows per month',
+    resultEyebrow: 'Estimated loss',
+    monthlyLoss: 'Monthly loss',
+    yearlyLoss: 'Yearly loss',
+    rate: 'Estimated no-show rate',
+    note: 'This is an estimate, not financial advice.',
+    back: 'Back to salon page',
+    audit: 'Get the free audit',
+  },
+};
+
+const ronFormatter = new Intl.NumberFormat('ro-RO', {
+  style: 'currency',
+  currency: 'RON',
+  maximumFractionDigits: 0,
+});
+
+const formatRon = (value) => ronFormatter.format(Math.max(0, value));
 
 const getInitialLanguage = () => {
   if (typeof window === 'undefined') return 'ro';
@@ -1179,6 +1225,131 @@ const PlaceholderPage = ({ route, t, language, onLanguageChange }) => (
   </SalonLayout>
 );
 
+const NoShowCalculatorPage = ({ t, language, onLanguageChange }) => {
+  const copy = noShowCalculatorCopy[language] || noShowCalculatorCopy.ro;
+  const [values, setValues] = useState(calculatorDefaults);
+
+  const averagePrice = Math.max(0, Number(values.averagePrice) || 0);
+  const appointmentsPerMonth = Math.max(0, Number(values.appointmentsPerMonth) || 0);
+  const noShowsPerMonth = Math.max(0, Number(values.noShowsPerMonth) || 0);
+  const monthlyLoss = averagePrice * noShowsPerMonth;
+  const yearlyLoss = monthlyLoss * 12;
+  const noShowRate = appointmentsPerMonth > 0
+    ? Math.min(100, (noShowsPerMonth / appointmentsPerMonth) * 100)
+    : 0;
+
+  const handleChange = (field) => (event) => {
+    setValues((current) => ({
+      ...current,
+      [field]: event.target.value,
+    }));
+  };
+
+  const inputs = [
+    {
+      id: 'averagePrice',
+      label: copy.averagePrice,
+      value: values.averagePrice,
+      suffix: 'RON',
+    },
+    {
+      id: 'appointmentsPerMonth',
+      label: copy.appointmentsPerMonth,
+      value: values.appointmentsPerMonth,
+      suffix: language === 'en' ? '/ month' : '/ lună',
+    },
+    {
+      id: 'noShowsPerMonth',
+      label: copy.noShowsPerMonth,
+      value: values.noShowsPerMonth,
+      suffix: language === 'en' ? '/ month' : '/ lună',
+    },
+  ];
+
+  return (
+    <SalonLayout t={t} language={language} onLanguageChange={onLanguageChange}>
+      <main className="salon-grain relative min-h-screen overflow-hidden pt-28">
+        <img src={salonHeroImage} alt="" className="absolute inset-0 h-full w-full object-cover opacity-28" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,#110b09_0%,rgba(17,11,9,0.96)_48%,rgba(17,11,9,0.82)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_24%,rgba(216,180,106,0.16),transparent_34%),linear-gradient(180deg,rgba(17,11,9,0.18),#110b09_96%)]" />
+
+        <section className="relative z-10 mx-auto grid min-h-[calc(100vh-7rem)] max-w-7xl items-center gap-8 px-5 py-16 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-10">
+          <Reveal>
+            <div>
+              <Eyebrow>{copy.eyebrow}</Eyebrow>
+              <h1 className="salon-display mt-5 max-w-3xl text-5xl font-semibold leading-[0.98] text-[#fbf4e8] sm:text-6xl md:text-7xl">
+                {copy.title}
+              </h1>
+              <p className="mt-7 max-w-2xl text-base leading-8 text-[#cbbcac] sm:text-lg">
+                {copy.body}
+              </p>
+              <p className="mt-6 max-w-xl border-l border-[#d8b46a]/45 pl-5 text-sm leading-7 text-[#f1e4d4]/82">
+                {copy.note}
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <div className="salon-card rounded-lg border border-[#fbf4e8]/10 bg-[linear-gradient(145deg,rgba(251,244,232,0.09),rgba(251,244,232,0.035))] p-5 shadow-[0_28px_80px_rgba(0,0,0,0.26)] sm:p-7">
+              <div className="grid gap-4">
+                {inputs.map((input) => (
+                  <label key={input.id} htmlFor={input.id} className="block">
+                    <span className="mb-2 block text-xs font-bold uppercase tracking-[0.18em] text-[#d8b46a]">
+                      {input.label}
+                    </span>
+                    <div className="flex min-h-14 items-center rounded-lg border border-[#fbf4e8]/12 bg-[#110b09]/70 px-4 transition-colors focus-within:border-[#38c995]/70">
+                      <input
+                        id={input.id}
+                        type="number"
+                        min="0"
+                        inputMode="decimal"
+                        value={input.value}
+                        onChange={handleChange(input.id)}
+                        className="min-w-0 flex-1 bg-transparent text-lg font-semibold text-[#fbf4e8] outline-none placeholder:text-[#cbbcac]/45"
+                      />
+                      <span className="ml-3 shrink-0 text-xs font-bold uppercase tracking-[0.16em] text-[#cbbcac]/70">
+                        {input.suffix}
+                      </span>
+                    </div>
+                  </label>
+                ))}
+              </div>
+
+              <div className="mt-6 rounded-lg border border-[#d8b46a]/18 bg-[#fbf4e8]/7 p-5">
+                <div className="text-xs font-bold uppercase tracking-[0.22em] text-[#d8b46a]">
+                  {copy.resultEyebrow}
+                </div>
+                <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <div className="text-sm text-[#cbbcac]">{copy.monthlyLoss}</div>
+                    <div className="mt-2 text-3xl font-bold text-[#fbf4e8] sm:text-4xl">
+                      {formatRon(monthlyLoss)}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-[#cbbcac]">{copy.yearlyLoss}</div>
+                    <div className="mt-2 text-3xl font-bold text-[#fbf4e8] sm:text-4xl">
+                      {formatRon(yearlyLoss)}
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-5 rounded-full border border-[#fbf4e8]/10 bg-[#110b09]/55 px-4 py-3 text-sm font-semibold text-[#f1e4d4]">
+                  {copy.rate}: {noShowRate.toFixed(1)}%
+                </div>
+              </div>
+
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                <CTAButton href="/salons" variant="secondary">{copy.back}</CTAButton>
+                <CTAButton href={auditCalendlyUrl}>{copy.audit}</CTAButton>
+              </div>
+            </div>
+          </Reveal>
+        </section>
+      </main>
+    </SalonLayout>
+  );
+};
+
 export default function SalonsLanding() {
   const [language, setLanguage] = useState(getInitialLanguage);
   const t = salonCopy[language];
@@ -1196,6 +1367,16 @@ export default function SalonsLanding() {
     }
     document.documentElement.lang = language;
   }, [language]);
+
+  if (pathname === '/salons/no-show-calculator') {
+    return (
+      <NoShowCalculatorPage
+        t={t}
+        language={language}
+        onLanguageChange={setLanguage}
+      />
+    );
+  }
 
   if (route) {
     return (
