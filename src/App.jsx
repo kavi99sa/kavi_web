@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import SalonsLanding from './SalonsLanding.jsx';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -2467,6 +2468,12 @@ const BookingModal = () => {
 // MAIN PAGE
 // =====================================================
 export default function KaviAutomationLanding() {
+  const pathname = typeof window === 'undefined' ? '/' : window.location.pathname;
+
+  if (pathname === '/salons' || pathname.startsWith('/salons/')) {
+    return <SalonsLanding />;
+  }
+
   return (
     <div className="min-h-screen bg-black text-white font-body antialiased relative overflow-x-hidden">
       <FontLoader />
