@@ -16,7 +16,7 @@ import {
   Zap,
 } from 'lucide-react';
 
-const salonHeroImage = '/images/salon-hero-premium.png';
+const salonHeroImage = '/salon-hero-premium.png';
 const languageStorageKey = 'kavi-salons-language';
 const auditCalendlyUrl = 'https://calendly.com/kavi-kaviautomation/audit-gratuit-pentru-salon-15-min';
 const calculatorDefaults = {
